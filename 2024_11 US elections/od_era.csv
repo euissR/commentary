@@ -1,10 +1,10 @@
 donor,name,value,y
-Baseline,Military,58.684857295245536,1
-Baseline,Financial,54.27556797536653,1
-No new US aid,Military,34.053008928383385,2
-No new US aid,Financial,46.12419266214628,2
-No new US aid and 50% European cuts,Military,29.342428647622768,3
-No new US aid and 50% European cuts,Financial,27.137783987683264,3
+Baseline scenario (aid at same level as 2024),Military,58.684857295245536,1
+Baseline scenario (aid at same level as 2024),Financial,54.27556797536653,1
+Scenario with no new US aid,Military,34.053008928383385,2
+Scenario with no new US aid,Financial,46.12419266214628,2
+Scenario with no new US aid and 50% European cuts,Military,29.342428647622768,3
+Scenario with no new US aid and 50% European cuts,Financial,27.137783987683264,3
 Russian frozen asset loans,Military,NA,4
 Russian frozen asset loans,Financial,45,4
 NATO loans,Military,40,5
