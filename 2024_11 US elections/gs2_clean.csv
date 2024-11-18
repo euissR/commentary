@@ -1,40 +1,40 @@
-id,type,name,value
-1,Active Ground Forces,US,811200
-1,Active Ground Forces,Non-US NATO,1989225
-1,Active Ground Forces,Russia,1255000
-2,Reserve Ground Forces,US,800150
-2,Reserve Ground Forces,Non-US NATO,1230100
-2,Reserve Ground Forces,Russia,1500000
-3,Main Battle Tanks,US,2645
-3,Main Battle Tanks,Non-US NATO,6586
-3,Main Battle Tanks,Russia,3380
-4,Other Armored Fighting Vehicles,US,49383
-4,Other Armored Fighting Vehicles,Non-US NATO,43565
-4,Other Armored Fighting Vehicles,Russia,13989
-5,Artillery platforms,US,3448
-5,Artillery platforms,Non-US NATO,6838
-5,Artillery platforms,Russia,3573
-6,Air and Missile Defense,US,601
-6,Air and Missile Defense,Non-US NATO,483
-6,Air and Missile Defense,Russia,1557
-7,5th Generation Fighter and Ground Attack Aircraft,US,792
-7,5th Generation Fighter and Ground Attack Aircraft,Non-US NATO,162
-7,5th Generation Fighter and Ground Attack Aircraft,Russia,8
-8,Command and Control Aircraft,US,20
-8,Command and Control Aircraft,Non-US NATO,0
-8,Command and Control Aircraft,Russia,8
-9,Manned ISR Aircraft,US,143
-9,Manned ISR Aircraft,Non-US NATO,32
-9,Manned ISR Aircraft,Russia,70
-10,Attack Helicopters,US,883
-10,Attack Helicopters,Non-US NATO,433
-10,Attack Helicopters,Russia,407
-11,Strategic Submarines,US,14
-11,Strategic Submarines,Non-US NATO,17
-11,Strategic Submarines,Russia,11
-12,Tactical Submarines,US,53
-12,Tactical Submarines,Non-US NATO,66
-12,Tactical Submarines,Russia,40
-13,Aircraft Carriers,US,11
-13,Aircraft Carriers,Non-US NATO,5
-13,Aircraft Carriers,Russia,1
+id,type,name,value,perc
+1,Active Ground Forces,US,811200,20
+1,Active Ground Forces,Non-US NATO,1989225,49.1
+1,Active Ground Forces,Russia,1255000,30.9
+2,Reserve Ground Forces,US,800150,22.7
+2,Reserve Ground Forces,Non-US NATO,1230100,34.8
+2,Reserve Ground Forces,Russia,1500000,42.5
+3,Main Battle Tanks,US,2645,21
+3,Main Battle Tanks,Non-US NATO,6586,52.2
+3,Main Battle Tanks,Russia,3380,26.8
+4,Other Armored Fighting Vehicles,US,49383,46.2
+4,Other Armored Fighting Vehicles,Non-US NATO,43565,40.699999999999996
+4,Other Armored Fighting Vehicles,Russia,13989,13.100000000000001
+5,Artillery platforms,US,3448,24.9
+5,Artillery platforms,Non-US NATO,6838,49.3
+5,Artillery platforms,Russia,3573,25.8
+6,Air and Missile Defense,US,601,22.8
+6,Air and Missile Defense,Non-US NATO,483,18.3
+6,Air and Missile Defense,Russia,1557,59
+7,5th Generation Fighter and Ground Attack Aircraft,US,792,82.3
+7,5th Generation Fighter and Ground Attack Aircraft,Non-US NATO,162,16.8
+7,5th Generation Fighter and Ground Attack Aircraft,Russia,8,0.8
+8,Command and Control Aircraft,US,20,71.39999999999999
+8,Command and Control Aircraft,Non-US NATO,0,0
+8,Command and Control Aircraft,Russia,8,28.599999999999998
+9,Manned ISR Aircraft,US,143,58.4
+9,Manned ISR Aircraft,Non-US NATO,32,13.100000000000001
+9,Manned ISR Aircraft,Russia,70,28.599999999999998
+10,Attack Helicopters,US,883,51.2
+10,Attack Helicopters,Non-US NATO,433,25.1
+10,Attack Helicopters,Russia,407,23.599999999999998
+11,Strategic Submarines,US,14,33.300000000000004
+11,Strategic Submarines,Non-US NATO,17,40.5
+11,Strategic Submarines,Russia,11,26.200000000000003
+12,Tactical Submarines,US,53,33.300000000000004
+12,Tactical Submarines,Non-US NATO,66,41.5
+12,Tactical Submarines,Russia,40,25.2
+13,Aircraft Carriers,US,11,64.7
+13,Aircraft Carriers,Non-US NATO,5,29.4
+13,Aircraft Carriers,Russia,1,5.8999999999999995
