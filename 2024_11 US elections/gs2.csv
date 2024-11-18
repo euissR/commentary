@@ -1,10 +1,10 @@
 type,name,value
-Active Ground Forces,US,811200
-Active Ground Forces,Non-US NATO,1989225
-Active Ground Forces,Russia,1255000
-Reserve Ground Forces,US,800150
-Reserve Ground Forces,Non-US NATO,1230100
-Reserve Ground Forces,Russia,1500000
+Active Ground Forces (thousands),US,811.2
+Active Ground Forces (thousands),Non-US NATO,1989.225
+Active Ground Forces (thousands),Russia,1255
+Reserve Ground Forces (thousands),US,800.15
+Reserve Ground Forces (thousands),Non-US NATO,1230.1
+Reserve Ground Forces (thousands),Russia,1500
 Main Battle Tanks,US,2645
 Main Battle Tanks,Non-US NATO,6586
 Main Battle Tanks,Russia,3380
