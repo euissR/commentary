@@ -1,0 +1,40 @@
+type,name,value
+Active Ground Forces,US,811200
+Active Ground Forces,Non-US NATO,1989225
+Active Ground Forces,Russia,1255000
+Reserve Ground Forces,US,800150
+Reserve Ground Forces,Non-US NATO,1230100
+Reserve Ground Forces,Russia,1500000
+Main Battle Tanks,US,2645
+Main Battle Tanks,Non-US NATO,6586
+Main Battle Tanks,Russia,3380
+Other Armored Fighting Vehicles,US,49383
+Other Armored Fighting Vehicles,Non-US NATO,43565
+Other Armored Fighting Vehicles,Russia,13989
+Artillery platforms,US,3448
+Artillery platforms,Non-US NATO,6838
+Artillery platforms,Russia,3573
+Air and Missile Defense,US,601
+Air and Missile Defense,Non-US NATO,483
+Air and Missile Defense,Russia,1557
+5th Generation Fighter and Ground Attack Aircraft,US,792
+5th Generation Fighter and Ground Attack Aircraft,Non-US NATO,162
+5th Generation Fighter and Ground Attack Aircraft,Russia,8
+Command and Control Aircraft,US,20
+Command and Control Aircraft,Non-US NATO,0
+Command and Control Aircraft,Russia,8
+Manned ISR Aircraft,US,143
+Manned ISR Aircraft,Non-US NATO,32
+Manned ISR Aircraft,Russia,70
+Attack Helicopters,US,883
+Attack Helicopters,Non-US NATO,433
+Attack Helicopters,Russia,407
+Strategic Submarines,US,14
+Strategic Submarines,Non-US NATO,17
+Strategic Submarines,Russia,11
+Tactical Submarines,US,53
+Tactical Submarines,Non-US NATO,66
+Tactical Submarines,Russia,40
+Aircraft Carriers,US,11
+Aircraft Carriers,Non-US NATO,5
+Aircraft Carriers,Russia,1
