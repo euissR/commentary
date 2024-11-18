@@ -1,40 +1,40 @@
 id,type,name,value,perc,url
-1,Active Ground Forces,US,811200,20,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_ActiveGroundForces.jpg
-1,Active Ground Forces,Non-US NATO,1989225,49.1,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_ActiveGroundForces.jpg
-1,Active Ground Forces,Russia,1255000,30.9,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_ActiveGroundForces.jpg
-2,Reserve Ground Forces,US,800150,22.7,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_ReserveGroundForces.jpg
-2,Reserve Ground Forces,Non-US NATO,1230100,34.8,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_ReserveGroundForces.jpg
-2,Reserve Ground Forces,Russia,1500000,42.5,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_ReserveGroundForces.jpg
-3,Main Battle Tanks,US,2645,21,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_MainBattleTanks.jpg
-3,Main Battle Tanks,Non-US NATO,6586,52.2,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_MainBattleTanks.jpg
-3,Main Battle Tanks,Russia,3380,26.8,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_MainBattleTanks.jpg
-4,Other Armored Fighting Vehicles,US,49383,46.2,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_OtherArmoredFightingVehicles.jpg
-4,Other Armored Fighting Vehicles,Non-US NATO,43565,40.699999999999996,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_OtherArmoredFightingVehicles.jpg
-4,Other Armored Fighting Vehicles,Russia,13989,13.100000000000001,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_OtherArmoredFightingVehicles.jpg
+1,Active ground forces,US,811200,20,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Activegroundforces.jpg
+1,Active ground forces,Non-US NATO,1989225,49.1,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Activegroundforces.jpg
+1,Active ground forces,Russia,1255000,30.9,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Activegroundforces.jpg
+2,Reserve ground forces,US,800150,22.7,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Reservegroundforces.jpg
+2,Reserve ground forces,Non-US NATO,1230100,34.8,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Reservegroundforces.jpg
+2,Reserve ground forces,Russia,1500000,42.5,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Reservegroundforces.jpg
+3,Main battle tanks,US,2645,21,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Mainbattletanks.jpg
+3,Main battle tanks,Non-US NATO,6586,52.2,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Mainbattletanks.jpg
+3,Main battle tanks,Russia,3380,26.8,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Mainbattletanks.jpg
+4,Other armoured fighting vehicles,US,49383,46.2,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Otherarmouredfightingvehicles.jpg
+4,Other armoured fighting vehicles,Non-US NATO,43565,40.699999999999996,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Otherarmouredfightingvehicles.jpg
+4,Other armoured fighting vehicles,Russia,13989,13.100000000000001,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Otherarmouredfightingvehicles.jpg
 5,Artillery platforms,US,3448,24.9,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Artilleryplatforms.jpg
 5,Artillery platforms,Non-US NATO,6838,49.3,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Artilleryplatforms.jpg
 5,Artillery platforms,Russia,3573,25.8,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Artilleryplatforms.jpg
-6,Air and Missile Defense,US,601,22.8,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_AirandMissileDefense.jpg
-6,Air and Missile Defense,Non-US NATO,483,18.3,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_AirandMissileDefense.jpg
-6,Air and Missile Defense,Russia,1557,59,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_AirandMissileDefense.jpg
-7,5th Generation Fighter and Ground Attack Aircraft,US,792,82.3,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_5thGenerationFighterandGroundAttackAircraft.jpg
-7,5th Generation Fighter and Ground Attack Aircraft,Non-US NATO,162,16.8,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_5thGenerationFighterandGroundAttackAircraft.jpg
-7,5th Generation Fighter and Ground Attack Aircraft,Russia,8,0.8,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_5thGenerationFighterandGroundAttackAircraft.jpg
-8,Command and Control Aircraft,US,20,71.39999999999999,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_CommandandControlAircraft.jpg
-8,Command and Control Aircraft,Non-US NATO,0,0,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_CommandandControlAircraft.jpg
-8,Command and Control Aircraft,Russia,8,28.599999999999998,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_CommandandControlAircraft.jpg
+6,Air and missile defence,US,601,22.8,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Airandmissiledefence.jpg
+6,Air and missile defence,Non-US NATO,483,18.3,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Airandmissiledefence.jpg
+6,Air and missile defence,Russia,1557,59,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Airandmissiledefence.jpg
+7,5th generation fighter and ground attack aircraft,US,792,82.3,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_5thgenerationfighterandgroundattackaircraft.jpg
+7,5th generation fighter and ground attack aircraft,Non-US NATO,162,16.8,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_5thgenerationfighterandgroundattackaircraft.jpg
+7,5th generation fighter and ground attack aircraft,Russia,8,0.8,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_5thgenerationfighterandgroundattackaircraft.jpg
+8,Command and control aircraft,US,20,71.39999999999999,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Commandandcontrolaircraft.jpg
+8,Command and control aircraft,Non-US NATO,0,0,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Commandandcontrolaircraft.jpg
+8,Command and control aircraft,Russia,8,28.599999999999998,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Commandandcontrolaircraft.jpg
 9,Manned ISR Aircraft,US,143,58.4,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_MannedISRAircraft.jpg
 9,Manned ISR Aircraft,Non-US NATO,32,13.100000000000001,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_MannedISRAircraft.jpg
 9,Manned ISR Aircraft,Russia,70,28.599999999999998,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_MannedISRAircraft.jpg
-10,Attack Helicopters,US,883,51.2,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_AttackHelicopters.jpg
-10,Attack Helicopters,Non-US NATO,433,25.1,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_AttackHelicopters.jpg
-10,Attack Helicopters,Russia,407,23.599999999999998,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_AttackHelicopters.jpg
-11,Strategic Submarines,US,14,33.300000000000004,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_StrategicSubmarines.jpg
-11,Strategic Submarines,Non-US NATO,17,40.5,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_StrategicSubmarines.jpg
-11,Strategic Submarines,Russia,11,26.200000000000003,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_StrategicSubmarines.jpg
-12,Tactical Submarines,US,53,33.300000000000004,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_TacticalSubmarines.jpg
-12,Tactical Submarines,Non-US NATO,66,41.5,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_TacticalSubmarines.jpg
-12,Tactical Submarines,Russia,40,25.2,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_TacticalSubmarines.jpg
-13,Aircraft Carriers,US,11,64.7,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_AircraftCarriers.jpg
-13,Aircraft Carriers,Non-US NATO,5,29.4,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_AircraftCarriers.jpg
-13,Aircraft Carriers,Russia,1,5.8999999999999995,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_AircraftCarriers.jpg
+10,Attack helicopters,US,883,51.2,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Attackhelicopters.jpg
+10,Attack helicopters,Non-US NATO,433,25.1,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Attackhelicopters.jpg
+10,Attack helicopters,Russia,407,23.599999999999998,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Attackhelicopters.jpg
+11,Strategic submarines,US,14,33.300000000000004,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Strategicsubmarines.jpg
+11,Strategic submarines,Non-US NATO,17,40.5,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Strategicsubmarines.jpg
+11,Strategic submarines,Russia,11,26.200000000000003,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Strategicsubmarines.jpg
+12,Tactical submarines,US,53,33.300000000000004,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Tacticalsubmarines.jpg
+12,Tactical submarines,Non-US NATO,66,41.5,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Tacticalsubmarines.jpg
+12,Tactical submarines,Russia,40,25.2,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Tacticalsubmarines.jpg
+13,Aircraft carriers,US,11,64.7,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Aircraftcarriers.jpg
+13,Aircraft carriers,Non-US NATO,5,29.4,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Aircraftcarriers.jpg
+13,Aircraft carriers,Russia,1,5.8999999999999995,https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2024_11%20US%20elections/gs2_Aircraftcarriers.jpg
