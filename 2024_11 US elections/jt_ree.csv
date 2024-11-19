@@ -1,10 +1,22 @@
-group,year,perc,y2,y1
-Anti-Western axis,1995,50.3,50.3,0
-Anti-Western axis,2012,93.3,93.3,0
-Anti-Western axis,2022,71.60000000000001,71.60000000000001,0
-Rest of world,1995,5.4,55.699999999999996,50.3
-Rest of world,2012,3,96.3,93.3
-Rest of world,2022,8.1,79.7,71.60000000000001
-G7 and partners,1995,44.300000000000004,100,55.699999999999996
-G7 and partners,2012,3.5999999999999996,99.89999999999999,96.3
-G7 and partners,2022,20.2,99.9,79.7
+group,year,perc,y2,y1,type
+Anti-Western axis,1995,50.3,50.3,0,Rare earth mining
+Anti-Western axis,2013,89.8,89.8,0,Rare earth mining
+Anti-Western axis,2014,86.2,86.2,0,Rare earth mining
+Anti-Western axis,2022,71.60000000000001,71.60000000000001,0,Rare earth mining
+G7 and partners,1995,44.300000000000004,94.6,50.29999999999999,Rare earth mining
+G7 and partners,2013,7.8999999999999995,97.7,89.8,Rare earth mining
+Anti-Western axis,2015,83.10000000000001,83.10000000000001,0,Rare earth mining
+Anti-Western axis,2016,83.2,83.2,0,Rare earth mining
+Anti-Western axis,2017,81.7,81.7,0,Rare earth mining
+G7 and partners,2014,10.7,96.9,86.2,Rare earth mining
+G7 and partners,2015,13.9,97.00000000000001,83.10000000000001,Rare earth mining
+G7 and partners,2016,11.6,94.8,83.2,Rare earth mining
+G7 and partners,2017,14.4,96.10000000000001,81.7,Rare earth mining
+G7 and partners,2022,20.2,91.80000000000001,71.60000000000001,Rare earth mining
+Rest of world,1995,5.4,100,94.6,Rare earth mining
+Rest of world,2013,2.3000000000000003,100,97.7,Rare earth mining
+Rest of world,2014,3.1,100,96.9,Rare earth mining
+Rest of world,2015,3,100.00000000000001,97.00000000000001,Rare earth mining
+Rest of world,2016,5.2,100,94.8,Rare earth mining
+Rest of world,2017,4,100.10000000000001,96.10000000000001,Rare earth mining
+Rest of world,2022,8.1,99.9,91.80000000000001,Rare earth mining
