@@ -1,10 +1,10 @@
-group,year,perc
-Anti-Western axis,1995,50.3
-Anti-Western axis,2012,93.3
-Anti-Western axis,2022,71.60000000000001
-Rest of world,1995,55.699999999999996
-Rest of world,2012,96.3
-Rest of world,2022,79.7
-G7 and partners,1995,100
-G7 and partners,2012,99.89999999999999
-G7 and partners,2022,99.9
+group,year,perc,y2,y1
+Anti-Western axis,1995,50.3,50.3,0
+Anti-Western axis,2012,93.3,93.3,0
+Anti-Western axis,2022,71.60000000000001,71.60000000000001,0
+Rest of world,1995,5.4,55.699999999999996,50.3
+Rest of world,2012,3,96.3,93.3
+Rest of world,2022,8.1,79.7,71.60000000000001
+G7 and partners,1995,44.300000000000004,100,55.699999999999996
+G7 and partners,2012,3.5999999999999996,99.89999999999999,96.3
+G7 and partners,2022,20.2,99.9,79.7
