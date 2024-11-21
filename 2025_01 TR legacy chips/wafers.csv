@@ -1,8 +1,8 @@
-country,val
-China,1.665
-EU,0.45275
-USA,0.7308
-Taiwan,0.507375
-South East Asia,0.443
-Japan,0.329
-World total (without PRC),2.462925
+country,val,group
+China,1.665,China
+European Union,0.45275,European Union
+USA,0.7308,other
+Taiwan,0.507375,other
+South East Asia,0.443,other
+Japan,0.329,other
+World total (without PRC),2.462925,World
