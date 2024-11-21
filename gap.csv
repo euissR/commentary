@@ -1,0 +1,7 @@
+size,country,value
+≤ 14 nm,Announced fab equivalents,2
+≤ 14 nm,Required fab equivalents to meet 80% of demand,1
+22-65 nm,Announced fab equivalents,7
+22-65 nm,Required fab equivalents to meet 80% of demand,3
+≥ 90 nm,Announced fab equivalents,6
+≥ 90 nm,Required fab equivalents to meet 80% of demand,18

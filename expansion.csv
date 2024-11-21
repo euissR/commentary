@@ -1,0 +1,22 @@
+country,name,value
+EU,Wafer capacity at 20-180nm (March 2023),13
+EU,Share of global chip demand (all node sizes),7
+EU,Share of industrial manufacturing (2023),17
+China,Wafer capacity at 20-180nm (March 2023),29.6
+China,Share of global chip demand (all node sizes),32
+China,Share of industrial manufacturing (2023),28.8
+Taiwan,Wafer capacity at 20-180nm (March 2023),20.9
+Taiwan,Share of global chip demand (all node sizes),8
+Taiwan,Share of industrial manufacturing (2023),1.5
+USA,Wafer capacity at 20-180nm (March 2023),10.1
+USA,Share of global chip demand (all node sizes),22
+USA,Share of industrial manufacturing (2023),17.3
+Japan,Wafer capacity at 20-180nm (March 2023),12.6
+Japan,Share of global chip demand (all node sizes),8
+Japan,Share of industrial manufacturing (2023),5.1
+South Korea,Wafer capacity at 20-180nm (March 2023),6
+South Korea,Share of global chip demand (all node sizes),9
+South Korea,Share of industrial manufacturing (2023),2.6
+South East Asia,Wafer capacity at 20-180nm (March 2023),7.8
+South East Asia,Share of global chip demand (all node sizes),5
+South East Asia,Share of industrial manufacturing (2023),4.7
