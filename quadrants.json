@@ -1,0 +1,18 @@
+[
+  { "rect": 1, "name": "No/few regrets", "x": 5, "y": 10 },
+  { "rect": 1, "name": "No/few regrets", "x": 0, "y": 10 },
+  { "rect": 1, "name": "No/few regrets", "x": 0, "y": 5 },
+  { "rect": 1, "name": "No/few regrets", "x": 5, "y": 5 },
+  { "rect": 2, "name": "No pain, no gain", "x": 5, "y": 0 },
+  { "rect": 2, "name": "No pain, no gain", "x": 0, "y": 0 },
+  { "rect": 2, "name": "No pain, no gain", "x": 0, "y": 5 },
+  { "rect": 2, "name": "No pain, no gain", "x": 5, "y": 5 },
+  { "rect": 3, "name": "No gain, just pain", "x": 5, "y": 10 },
+  { "rect": 3, "name": "No gain, just pain", "x": 10, "y": 10 },
+  { "rect": 3, "name": "No gain, just pain", "x": 10, "y": 5 },
+  { "rect": 3, "name": "No gain, just pain", "x": 5, "y": 5 },
+  { "rect": 4, "name": "High reward, high price", "x": 5, "y": 0 },
+  { "rect": 4, "name": "High reward, high price", "x": 10, "y": 0 },
+  { "rect": 4, "name": "High reward, high price", "x": 10, "y": 5 },
+  { "rect": 4, "name": "High reward, high price", "x": 5, "y": 5 }
+]
