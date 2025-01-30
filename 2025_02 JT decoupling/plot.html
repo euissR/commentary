@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Interactive D3 Scatterplot</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      text {
+        font-family: "PT Sans", sans-serif;
+      }
+      .dot {
+        transition: opacity 0.3s;
+        fill: #fff;
+        stroke: #000;
+      }
+      .dot:hover {
+        opacity: 0.2;
+      }
+      .arrow {
+        transition: opacity 0.3s;
+        fill: none;
+        pointer-events: none;
+      }
+      .hover-dot {
+        pointer-events: none;
+      }
+      .label {
+        font-size: 10px;
+        pointer-events: none;
+      }
+      .axis line,
+      .axis path {
+        display: none;
+      }
+      .tooltip {
+        position: absolute;
+        text-align: left;
+        width: auto;
+        height: auto;
+        padding: 5px;
+        font: 12px sans-serif;
+        /* background: #fff; */
+        border: 0px;
+        border-radius: 8px;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chart"></div>
+    <div id="tooltip" class="tooltip" style="opacity: 0"></div>
+    <script>
+      // Load JSON data for rectangles first - to have it in background
+      // d3.json("quadrants.json").then((rectData) => {
+      d3.json(
+        "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2025_02%20JT%20decoupling/quadrants.json"
+      ).then((rectData) => {
+        // Load CSV file
+        // d3.csv("phase2_industries.csv").then((data) => {
+        d3.csv(
+          "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2025_02%20JT%20decoupling/phase2_industries.csv"
+        ).then((data) => {
+          // Convert numerical fields from strings
+          data.forEach((d) => {
+            d.x = +d.x;
+            d.y = +d.y;
+            d.xend = +d.xend;
+            d.yend = +d.yend;
+            d.group = d.group;
+            d.name_short = d.name_short;
+          });
+
+          console.log(data);
+
+          // Set up SVG dimensions
+          const margin = { top: 100, right: 50, bottom: 50, left: 50 };
+          const width = 600 - margin.left - margin.right;
+          const height = 640 - margin.top - margin.bottom;
+
+          // Create SVG
+          const svg = d3
+            .select("#chart")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+          // Reverse x-axis scaling
+          const xScale = d3.scaleLinear().domain([10, 0]).range([0, width]);
+
+          const yScale = d3.scaleLinear().domain([0, 10]).range([height, 0]);
+
+          const colorScale = d3
+            .scaleOrdinal()
+            .domain([...new Set(data.map((d) => d.group))]) // Unique groups
+            .range(["#309ebe", "#df3144", "#595959"]); // Custom colors
+
+          // Unique data points (by x/y)
+          const uniqueData = Array.from(
+            new Map(data.map((d) => [`${d.x},${d.y}`, d])).values()
+          );
+
+          // Group rectangles by 'rect' property
+          const groupedRects = d3.groups(rectData, (d) => d.rect);
+
+          // Add rectangles to the plot
+          groupedRects.forEach(([key, rectPoints]) => {
+            const rectGroup = svg.append("g").attr("class", "rect-group");
+
+            // Draw rectangle
+            rectGroup
+              .append("polygon")
+              .attr(
+                "points",
+                rectPoints
+                  .map((d) => [xScale(d.x), yScale(d.y)].join(","))
+                  .join(" ")
+              )
+              .attr("fill", "#eee")
+              .attr("stroke", "#fff")
+              .attr("stroke-width", 5);
+
+            // Add label
+            const label = rectPoints[0].name;
+            const labelX = d3.mean(rectPoints, (d) => xScale(d.x));
+            const labelY = d3.mean(rectPoints, (d) => yScale(d.y));
+
+            rectGroup
+              .append("text")
+              .attr("class", "label")
+              .attr("x", labelX)
+              .attr("y", labelY)
+              .attr("text-anchor", "middle")
+              .attr("dy", ".3em")
+              .text(label);
+          });
+
+          // Tooltip
+          const tooltip = d3.select("#tooltip");
+
+          // Create dots
+          const dots = svg
+            .selectAll(".dot")
+            .data(uniqueData)
+            .enter()
+            .append("g")
+            .attr("class", "dot-group");
+
+          // Dot circles
+          dots
+            .append("circle")
+            .attr("class", "dot")
+            .attr("cx", (d) => xScale(d.x))
+            .attr("cy", (d) => yScale(d.y))
+            .attr("r", 10)
+            .on("mouseover", function (event, d) {
+              tooltip.transition().duration(50).style("opacity", 0.9);
+              tooltip
+                .html(d.name)
+                .style("left", margin.left + 5 + "px")
+                .style("top", margin.top - 10 + "px");
+            })
+            .on("mouseout", function () {
+              tooltip.transition().duration(500).style("opacity", 0);
+            });
+
+          // Dot labels
+          dots
+            .append("text")
+            .attr("class", "label")
+            .attr("x", (d) => xScale(d.x))
+            .attr("y", (d) => yScale(d.y))
+            .attr("text-anchor", "middle")
+            .attr("dy", ".3em")
+            .text((d) => d.name_short);
+
+          // Hover functionality for arrows
+          dots
+            .on("mouseover", function (event, hoveredDot) {
+              // Find all dots with the same name_short
+              const relatedDots = data.filter(
+                (d) => d.name_short === hoveredDot.name_short
+              );
+
+              // Add dots for related dots
+              hoverDots = svg
+                .selectAll(".hover-dot")
+                .data(relatedDots)
+                .enter()
+                .append("circle")
+                .attr("class", "hover-dot")
+                .attr("cx", (d) => xScale(d.xend))
+                .attr("cy", (d) => yScale(d.yend))
+                .attr("r", 3)
+                .style("fill", (d) => colorScale(d.group));
+
+              // Add arrows for related dots
+              arrow = svg
+                .selectAll(".arrow")
+                .data(relatedDots)
+                .enter()
+                .append("line")
+                .attr("class", "arrow")
+                .attr("x1", (d) => xScale(d.x))
+                .attr("y1", (d) => yScale(d.y))
+                .attr("x2", (d) => xScale(d.xend))
+                .attr("y2", (d) => yScale(d.yend))
+                .attr("stroke", (d) => colorScale(d.group))
+                .attr("stroke-width", 2);
+            })
+            .on("mouseout", () => {
+              // Remove arrows on mouseout
+              svg.selectAll(".arrow").remove();
+              svg.selectAll(".hover-dot").remove();
+            });
+
+          // Add legend
+          const legend = svg
+            .selectAll(".legend")
+            .data(colorScale.domain())
+            .enter()
+            .append("g")
+            .attr("class", "legend")
+            .attr(
+              "transform",
+              (d, i) => `translate(${(i * width) / 3.5},${-margin.top / 2})`
+            );
+
+          legend
+            .append("rect")
+            .attr("width", 10)
+            .attr("height", 10)
+            .style("fill", colorScale);
+
+          legend
+            .append("text")
+            .attr("class", "label")
+            .attr("x", 15)
+            .attr("y", 5)
+            .attr("dy", ".35em")
+            .style("text-anchor", "start")
+            .text((d) => d);
+
+          // Axes
+          const xAxis = d3.axisBottom(xScale);
+          const yAxis = d3.axisLeft(yScale);
+
+          svg
+            .append("g")
+            .attr("class", "axis")
+            .attr("transform", `translate(0,${height})`)
+            .call(xAxis);
+
+          svg.append("g").attr("class", "axis").call(yAxis);
+        });
+      });
+    </script>
+  </body>
+</html>
