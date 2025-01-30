@@ -1,0 +1,1783 @@
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400&display=swap" rel="stylesheet" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- GET CSS FROM EUISS MAIN COLUMN TO CALCULATE MAP OFFSET -->
+  <script>
+    // Get the main element
+    const mainElement = document.querySelector('main.row.l-main');
+
+    // Get the computed styles of the main element
+    const computedStyle = getComputedStyle(mainElement);
+
+    // Extract the left padding and margin
+    const leftPadding = computedStyle.paddingLeft;
+    const leftMargin = computedStyle.marginLeft;
+
+    // Set these values as CSS variables on the document root
+    document.documentElement.style.setProperty('--main-left-padding', leftPadding);
+    document.documentElement.style.setProperty('--main-left-margin', leftMargin);
+  </script>
+
+
+  <style>
+    article {
+      position: relative
+    }
+
+    figure.sticky {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0
+    }
+
+    #map {
+      left: calc(-1 * (var(--main-left-padding) + var(--main-left-margin)));
+      width: calc(100vw - var(--main-left-padding) - var(--main-left-margin));
+      height: 100vh;
+      margin-top: 40px;
+      margin-left: 0px;
+      margin-right: 0px;
+      z-index: 0;
+    }
+
+    .popup .mapboxgl-popup-content {
+      background-color: rgba(255, 255, 255, .8);
+      color: #000;
+      margin: 5px;
+      padding: .5em;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    }
+
+    .mapboxgl-popup-tip {
+      display: none
+    }
+
+    .active,
+    .section {
+      color: #1d1d1b;
+      height: auto;
+      opacity: .5;
+      font-size: 15px;
+      padding: .7vw 1.5vw .7vw 0vw;
+      line-height: 25px;
+      border-radius: 0;
+      pointer-events: all !important;
+      /* background: rgba(255, 255, 255, .8); */
+      background: rgb(255, 255, 255);
+      margin-top: auto
+    }
+
+    @media only screen and (max-width: 768px) {
+
+    .active,
+    .section {
+      color: #1d1d1b;
+      height: auto;
+      opacity: .5;
+      font-size: 15px;
+      padding: .7vw 1.5vw .7vw 0vw;
+      line-height: 25px;
+      border-radius: 0;
+      pointer-events: all !important;
+      background: rgba(255, 255, 255, .66);
+      /* background: rgb(255, 255, 255); */
+      margin-top: auto
+    }
+    }
+
+    .active {
+      opacity: 1
+    }
+
+    .section:last-child {
+      margin-bottom: 350px
+    }
+
+    .space {
+      margin: 0;
+      height: 100vh;
+      width: 0;
+      pointer-events: none
+    }
+
+    #card {
+      margin-right: 3.5vw;
+      margin-left: 0;
+      width: 40vw;
+      opacity: 1;
+      pointer-events: none;
+      color: #1d1d1b;
+      font-family: "PT Sans", sans-serif
+    }
+
+    @media only screen and (max-width: 768px) {
+  #card {
+    width: 90vw;
+    margin-right: 0;
+    margin-left: 0;
+    z-index: 3;
+  }
+}
+
+    .col {
+      position: relative;
+      width: 100%
+    }
+
+    h3 {
+      color: #1d1d1b;
+      font-size: 16px;
+      text-align: left;
+      font-family: "PT Sans", sans-serif;
+      font-weight: 700
+    }
+
+    .hl1,
+    .hl2,
+    .hl3,
+    .hl4 {
+      color: #fff;
+      font-weight: 700;
+      margin: 0 -.15em;
+      padding: 0 .15em
+    }
+
+    .hl1 {
+      background-color: #1d1d1b
+    }
+
+    .hl2 {
+      background-color: #df3144
+    }
+
+    .hl3 {
+      background-color: #33163a
+    }
+
+    .legend-container {
+      position: fixed;
+      bottom: 2em;
+      right: 10vw;
+      width: 15vw;
+      /* background: rgb(255, 255, 255); */
+      background: rgba(255, 255, 255, .9);
+      font-size: .75em;
+      padding: 1em;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+      z-index: 10;
+      display: none;
+      font-family: "PT Sans", sans-serif
+    }
+
+    @media only screen and (max-width: 768px) {
+
+    .legend-container {
+      position: fixed;
+      bottom: 2em;
+      right: 10vw;
+      width: 40vw;
+      /* background: rgb(255, 255, 255); */
+      background: rgba(255, 255, 255, .9);
+      font-size: .75em;
+      padding: 1em;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+      z-index: 2;
+      display: none;
+      font-family: "PT Sans", sans-serif
+    }
+
+    }
+
+    .source {
+      font-size: .75em;
+      color: #999;
+      margin-top: 1em
+    }
+
+    .legend {
+      opacity: .8;
+      right: 2vh;
+      text-align: right;
+      padding: 10px;
+      position: content;
+      right: 10px;
+      z-index: 1
+    }
+
+    .legend h4 {
+      margin: 0 0 10px
+    }
+
+    .legend div span {
+      border-radius: 50%;
+      display: inline-block;
+      height: 10px;
+      margin-right: 5px;
+      width: 10px
+    }
+
+    .legend-container .legend-dot,
+    .legend-container span {
+      border-radius: 50%;
+      display: inline-block;
+      height: 10px;
+      margin-right: 5px;
+      width: 10px;
+      background-color: currentColor
+    }
+
+    .legend-container .legend-dot {
+      border-radius: 50%;
+      display: inline-block;
+      height: 10px;
+      margin-right: 5px;
+      width: 10px
+    }
+
+    .legend-container .dot-fuchsia1 {
+      background-color: #ec5f5b;
+      opacity: .5;
+    }
+
+    .legend-container .dot-fuchsia2 {
+      background-color: #df3144
+    }
+
+    .legend-container .dot-fuchsia3 {
+      background-color: #a41e26;
+      opacity: .5;
+    }
+
+    .legend-container .dot-mauve {
+      background-color: #33163a;
+      opacity: .5;
+    }
+
+    .legend-container .dot-teal1 {
+      background-color: #64c2c7
+    }
+
+    .legend-container .dot-teal {
+      background-color: #309ebe
+    }
+
+    .legend-container .dot-teal2 {
+      background-color: #376882
+    }
+
+    .legend-container .dot-teal3 {
+      background-color: #1d3956
+    }
+
+    .legend-container .dot-egg {
+      background-color: #ffde75
+    }
+
+    .legend-container .dot-grey {
+      background-color: #999
+    }
+
+    .legend-container .dot-outline {
+      border: 1px solid #000;
+      background-color: transparent;
+      opacity: .5;
+      stroke-opacity: 1
+    }
+
+    .legend-container .dot-white {
+      background-color: #fff
+    }
+
+    aside {
+      display: none
+    }
+
+    .node-body {
+      max-width: 100vw;
+      width: 100%;
+      left: 0
+    }
+
+    .arrow,
+    .arrow:before {
+      position: absolute;
+      /* margin: 3em; */
+      left: 3em;
+    }
+
+    .arrow {
+      width: 40px;
+      height: 40px;
+      margin: -20px 20 0 -20px;
+      -webkit-transform: rotate(45deg);
+      border-left: none;
+      border-top: none;
+      z-index: 1
+    }
+
+    .arrow:before {
+      content: "";
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border-left: none;
+      border-top: none;
+      border-right: 1px #000 solid;
+      border-bottom: 1px #000 solid;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      animation-name: arrow
+    }
+
+    @keyframes arrow {
+      0% {
+        opacity: 1
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(10px, 10px)
+      }
+    }
+
+    .arrow-text {
+      font-family: "PT Sans", sans-serif;
+      font-size: .8em;
+      text-align: left;
+      margin-left: 3em
+    }
+
+    input {
+      position: absolute;
+      opacity: 0;
+      z-index: -1
+    }
+
+    &:last-child {
+      margin-left: 1em
+    }
+
+    /* FLOURISH */
+    .chart-container {
+      display: flex;
+      justify-content: space-between;
+      /* Optional: Adds space between the charts */
+      align-items: center;
+      /* Optional: Aligns charts vertically centered */
+    }
+
+    .chart {
+      flex: 1;
+      /* Ensures both charts take equal width */
+      margin: 0 10px;
+      /* Optional: Adds some margin between charts */
+      top: 0;
+    }
+
+    .flourish-credit {
+      display: none
+    }
+  </style>
+  <!-- LEGEND CONTAINER -->
+  <div id="fixed-legend" class="legend-container"></div>
+
+  <!-- INTRODUCTION -->
+  <div class="col" style="margin-top: 1vh;">
+    <p>
+      To delve into each topic more in detail, <a href="../reports/trump-harris-and-transatlantic-uncertainties" target="_blank">click here</a>.
+    </p>
+  </div>
+
+  <!-- SCROLLY INDICATOR -->
+  <div class="arrow-text"> Scroll down to go on.</div>
+  <div class="arrow"></div>
+
+  <!-- FIRST MAP -->
+  <div style="margin: 0px 10px 0px 0px;"><!-- sticky graphic -->
+    <!-- <figure class='sticky'> chart stuff in here -->
+    <figure id="map" class="sticky"></figure><!-- step text -->
+    <!-- <div class='step' data-index='0'> --> <!-- <p>Step text</p> -->
+
+    <!-- CARDS -->
+    <article id="card">
+      <section id="ch1" class="section active" style="opacity: 1; background-color: rgba(255, 255, 255, 0);">
+        <div class="arrow-text" style="margin-left: 3em"> Keep scrolling</div>
+        <div class="arrow"></div>
+      </section>
+      <div class="space"></div>
+      <section id="ch2" class="section" data-index='0'>
+        <h2>
+          Russia’s war against Ukraine
+        </h2>
+        <p>
+          Trump is campaigning on a promise to end the conflict ‘within 24 hours’ of his election. While details of his plan are unknown, it may well involve reaching out directly to Putin, negotiating a ceasefire, and conditioning assistance to Ukraine on Kyiv’s openness to negotiations. However, some people in Trump’s circles have also suggested that he would provide more aggressive support to Ukraine, if Russia does not back down. A Harris presidency, in contrast, would likely maintain Biden’s Ukraine policy: continue to provide assistance, but with limitations on how Ukraine can use weapons. The position of the new Congress will also be significant: a divided government could block additional support to Ukraine for months, like in early 2024. Can the EU ensure a steady and reliable flow of assistance to Kyiv? Which resources can it mobilise for that? And what position should Brussels take <i>vis-à-vis</i> a ceasefire deal, especially one that might not restore Ukraine’s full territorial integrity? 
+        </p>
+
+        <!-- LEGEND -->
+        <div id="ukr-acled-legend" class="legend-container" data-index="1">
+          <div>
+            <div><b>Military events and attacks on civilian infrastructure, 2022-2024</b></div>
+            <div><span class="dot-fuchsia2"></span> Battles</span></div>
+            <div><span class="dot-teal"></span> Strikes on civilian infrastructure</span></div>
+            <div class="source">Data: ACLED, 'Ukraine Conflict Monitor', 2024; Bellingcat, 'Civilian Harm in Ukraine', 2024</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="space"></div>
+      <section id="ch3" class="section" data-index='1'>
+        <h2>
+          European defence and NATO
+        </h2>
+        <p>
+          The two candidates’ positions on European defence are almost diametrically opposed. Trump has repeatedly threatened to withdraw from NATO, and not to defend allies who do not spend enough on defence. A second Trump administration may pursue a ‘dormant NATO’ policy. Harris, on the other hand, has reaffirmed American support for European allies. However, Biden was the last ‘Atlanticist’ US president, and the shift in resources towards the Indo-Pacific is likely to continue. Therefore, regardless of who wins in November, we might see a decline in US commitments, although the shift would be more drastic under a second Trump term. Against this background, the EU should assume a more active role in European defence. Yet new uncertainties arise. Can Brussels forge a united position among Member States on approaching a less pro-European Washington? Can it strike the right balance between maintaining strong transatlantic ties and developing autonomous capabilities?
+        </p>
+
+        <!-- LEGEND -->
+        <div id="us-forces-legend" class="legend-container" data-index="1">
+          <div><span class="dot-teal3"></span> US forces in Europe</div>
+          <div class="source">Data: IISS, The Military Balance, 2024</div>
+        </div>
+      </section>
+
+      <div class="space"></div>
+      <section id="ch4" class="section" data-index='1'>
+        <h2>
+          EU-US relations
+        </h2>
+        <p>
+          The two candidates’ stances on relations with the EU are also very different. Trump has accused the EU of unfair market practices. He is likely to resume tariffs on the EU, challenge the bloc’s digital and privacy rules, and privilege bilateral ties with individual Member States over relations with the EU institutions. Having Trump on their side, Eurosceptic leaders will feel emboldened and willing to challenge Brussels. A Harris administration would be more sympathetic towards the EU and support positive transatlantic relations. However, tensions in the economic arena are likely to persist as both sides of the Atlantic vie to protect their industrial base. Can Brussels prevent an escalation of transatlantic tensions? Would the EU be ready to hold its ground if a more confrontational administration comes to power? And how can Brussels prevent divisions among its Member States on relations with the US?
+        </p>
+
+        <div class="chart-container">
+          <div class="chart" id="chart3">
+            <div class="flourish-embed flourish-chart" data-src="visualisation/19322192">
+              <script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/19322192/thumbnail" alt="chart visualization" /></noscript>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEGEND -->
+        <div id="us-arms-legend" class="legend-container" data-index="1">
+          <div><b>Arms imports from the US</b></div>
+          <div><span class="dot-teal"></span> Share of total imports, %, 2019-23</div>
+          <div class="source">Data: SIPRI, 2024</div>
+        </div>
+      </section>
+
+      <div class="space"></div>
+      <section id="ch5" class="section" data-index='1'>
+        <h2>
+          China and Indo-Pacific
+        </h2>
+        <p>
+          Both Democrats and Republicans see Beijing as the United States’ main economic adversary and strategic competitor. On the economic front, Trump has promised to impose a 60% tariff on all Chinese goods. Harris would continue the Biden administration’s trade measures and export restrictions on advanced technologies. On security matters, many Trump advisers advocate for a redeployment of American military power from the Euro-Atlantic to the Indo-Pacific theatre, prioritising China over Russia. Trump has also criticised East Asian allies for not spending enough on defence. Harris has promised not to abandon European allies, but her presidency would likely encourage a growing tilt towards the Pacific, prioritising regional alliances such as the Quad or AUKUS. How can the EU prepare itself for a reduction in the American presence in Europe? Brussels should also reflect on what role it would play in the event of an economic or security crisis in East Asia, which would have serious repercussions, such as disrupting key imports and supply chains.
+        </p>
+
+        <div class="chart-container">
+          <div class="chart" id="chart1">
+            <div class="flourish-embed flourish-chart" data-src="visualisation/19322526">
+              <script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/19322526/thumbnail" alt="chart visualization" /></noscript>
+            </div>
+          </div>
+          <div class="chart" id="chart2">
+            <div class="flourish-embed flourish-chart" data-src="visualisation/19322572">
+              <script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/19322572/thumbnail" alt="chart visualization" /></noscript>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEGEND -->
+        <div id="taiwan-legend" class="legend-container" data-index="1">
+          <div><b>Recent PLA exercises around Taiwan</b></div>
+          <div><span class="dot-grey"></span> 2022</span></div>
+          <div><span class="dot-fuchsia2"></span> 2024</span></div>
+          <div class="source">Data: China’s Ministry of National Defence, 2022 and 2024</div>
+        </div>
+      </section>
+
+      <div class="space"></div>
+      <section id="ch6" class="section" data-index='3'>
+        <h2>
+          Israel-Hamas war 
+        </h2>
+        <p>
+          Both presidential candidates are likely to deviate, to a certain extent, from Biden’s handling of the war in Gaza. Trump, historically close to Israel, would push to end the conflict quickly by enabling Israel to defeat Hamas and possibly occupy parts of Gaza permanently. He will be most interested in reviving his signature policy, the Abraham Accords. Harris has been more critical than Biden of Israel’s war conduct, and may be stricter in her handling of relations with Israel, but would not enforce an arms embargo. Her administration will continue Biden’s diplomatic efforts towards ending the conflict, but the prospects for peace remain grim. In this context, how could the EU assume a more active role as the champion of a peace deal that preserves a path towards the two-state solution? What steps can it take to prevent a regional escalation of the war?        
+        </p>
+
+        <!-- LEGEND -->
+        <div id="isr-acled-legend" class="legend-container" data-index="1">
+          <div><b>Violent events since 7 Oct 2023</b></div>
+          <div>Actor</div>
+          <div><span class="dot-teal3"></span> Military forces of Israel</span></div>
+          <div><span class="dot-fuchsia2"></span> Hamas</span></div>
+          <div><span class="dot-egg"></span> Hezbollah</div>
+          <div class="source">Data: ACLED, 2024</div>
+        </div>
+      </section>
+
+      <div class="space"></div>
+      <section id="ch7" class="panel" data-index='4'>
+        <h2>
+          Iran
+        </h2>
+        <p>
+          A second Trump term would see a return of its policy of ‘maximum pressure’ on Iran, which could include the possibility of direct strikes on Iran and targeted assassinations. Although the administration’s plan would be to re-establish deterrence, the risk of a direct confrontation between Washington and Tehran would increase. A Harris presidency would maintain a strong position towards Iran and its proxies, without seeking regime change. Will the EU play a role in avoiding a regional war between Iran, its proxies and US allies? Where might Brussels find common ground with Washington in addressing the issue? One potential area of shared interest under either US administration could be targeting Iranian support for Russia. 
+        </p>
+
+        <!-- LEGEND -->
+        <div id="irn-legend" class="legend-container" data-index="1">
+          <div><span class="dot-fuchsia2"></span> Iranian proxy groups in the Middle East</span></div>
+          <div class="source">Data: Wilson Center, 2024</div>
+        </div>
+      </section>
+
+      <div class="space"></div>
+      <section id="ch8" class="panel" data-index='4'>
+        <h2>
+          The Western Balkans  
+        </h2>
+        <p>
+          While the Western Balkans may not be a central focus of the presidential campaign, the outcome of the election will affect the region significantly. A second Trump term could result in the normalisation of economic relations between Belgrade and Pristina, but also embolden leaders with authoritarian sympathies in the region. The Western Balkans could be plunged into turmoil if the US commitments to NATO are reduced. While we do not know much about Harris’s plans for the region, she is likely to maintain continuity with Biden’s policy towards the Western Balkans and adopt a firm stance on organised crime. Can the EU ensure stability in the Western Balkans without the US? And how will this affect the EU accession prospects of aspiring candidates in the region?
+        </p>
+
+        <!-- LEGEND -->
+        <div id="wb-legend" class="legend-container" data-index="1">
+          <div><b>Personnel contributions per country to multilateral missions in the Western Balkans</b></div>
+          <div><span class="dot-fuchsia2"></span> KFOR</div>
+          <div><span class="dot-teal3"></span> EUFOR Althea</div>
+          <div class="source">Data: NATO, EEAS, 2024</div>
+        </div>
+      </section>
+
+      <div class="space"></div>
+      <section id="ch9" class="panel" data-index='4'>
+        <h2>
+          Energy and climate 
+        </h2>
+        <p>
+          The two candidates have opposite policies on energy and climate change. A Trump administration would scale up production from fossil fuels, which would significantly impact the European energy market. Trump is also likely to reduce US commitment to combating climate change. On the other hand, a Harris-led United States would champion low-carbon energy production, building on the Inflation Reduction Act (IRA). Under Harris, Washington would be closely aligned with Brussels in climate diplomacy, but the transatlantic competition for clean energy resources and industry could intensify. Against this background, can the EU protect its domestic energy market against volatility? And how can it secure the critical minerals and secure supply chains needed for the green transition? 
+        </p>
+
+        <div class="chart-container">
+          <div class="chart" id="chart1">
+            <div class="flourish-embed flourish-chart" data-src="visualisation/19226464">
+              <script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/19226464/thumbnail" alt="chart visualization" /></noscript>
+            </div>
+          </div>
+          <div class="chart" id="chart2">
+            <div class="flourish-embed flourish-chart" data-src="visualisation/19226532">
+              <script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/19226532/thumbnail" alt="chart visualization" /></noscript>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEGEND -->
+        <div id="lng-legend" class="legend-container" data-index="1">
+          <div><b>European LNG imports</b></div>
+          <div>from the United States, 2023</div>
+          <div><span class="dot-teal1"></span> 0 bcm</div>
+          <div><span class="dot-teal"></span> 15 bcm</div>
+          <div><span class="dot-teal3"></span> 30 bcm</div>
+          <div class="source">Data: Institute for Energy Economics and Financial Analysis, 'European LNG Tracker', 2024</div>
+        </div>
+      </section>
+
+      <div class="space"></div>
+      <section id="ch10" class="panel" data-index='4'>
+        <h2>
+          Data and AI 
+        </h2>
+        <p>
+          Artificial intelligence (AI) and big data have featured prominently in the 2024 electoral cycle. Trump has received the endorsement of some major Silicon Valley executives, and plans to roll back regulations to facilitate research and ‘win the AI race’ against China. On the other hand, Harris plans to pass binding regulations on large tech companies, taking a stronger position than the Biden administration, which favoured voluntary standard setting. How will the two positions affect the EU–US Data Privacy Framework? How will they impact the EU’s ability to enforce its legislation, such as the Digital Markets Act (DMA)? 
+        </p>
+
+
+        <!-- LEGEND -->
+        <div id="artint-legend" class="legend-container" data-index="1">
+          <div><b>Top 50 AI companies by market capitalization</b></div>
+          <div><span class="dot-mauve"></span> Number of companies (in the northern hemisphere)</div>
+          <div class="source">Data: companiesmarketcap.com, 'Artificial intelligence', 2024</div>
+        </div>
+      </section>
+
+      <div class="space"></div>
+      <section id="ch11" class="panel" data-index='4'>
+        <h2>
+          Political tensions and polarisation 
+        </h2>
+        <p>
+          The 2024 election cycle is already featuring high levels of political tension. Trump was the victim of an assassination attempt on 13 July and opinion polls consistently point to a high degree of political polarisation and an erosion of trust in US political institutions. Against this background, a contested election outcome could unleash a wave of political violence across the country—and the Trump campaign is already questioning the validity of the electoral process, including Biden’s replacement on the ballot. A repeat of the assault on the Capitol of 6 January 2021 is possible. Widespread violence in the US would weaken the transatlantic relationship and could encourage turmoil worldwide. Can the EU develop a coordinated approach among Member States for dealing with contested electoral results and potential violence in the US? How can it curb the likely wave of disinformation around election day? 
+        </p>
+
+        <div class="chart-container">
+          <div class="chart" id="chart1">
+            <div class="flourish-embed flourish-chart" data-src="visualisation/19323077">
+              <script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/19323077/thumbnail" alt="chart visualization" /></noscript>
+            </div>
+          </div>
+          </div>
+
+        <!-- LEGEND -->
+        <div id="domestic-legend" class="legend-container" data-index="1">
+          <div><b>Riots and violent events</b></div>
+          <div>in the US during the</div>
+          <div><span class="dot-fuchsia2"></span> Trump presidency</div>
+          <div><span class="dot-teal3"></span> Biden presidency</div>
+          <div class="source">Data: ACLED, 2024</div>
+        </div>
+      </section>
+
+      <div class="space"></div>
+      <section id="ch12" class="active" style="opacity: 0" data-index="4"></section>
+    </article>
+  </div>
+
+  <!-- MAPBOX -->
+  <script>// style access token
+    mapboxgl.accessToken =
+      // deployment euiss
+      "pk.eyJ1IjoiY2R0cmljaCIsImEiOiJjbTZqNnR4cWswYnpxMm5zM2p0c2p4YXp1In0.Ud1QOlVvlf9xlnnNKx0OVA"; var map = new mapboxgl.Map({
+        container: "map",
+        // style URL
+        style: "mapbox://styles/cdtrich/cm0b3sx3v00n601r66ye05ker",
+        // initial camera position
+        projection: "globe",
+        center: [32.53336, 50.40322],
+        zoom: zoomFactor ? 0 : 2.2,
+        pitch: 0.0,
+        bearing: 0.0,
+      });//   map scrolling disabled for scrollytelling to work
+    map.boxZoom.disable();
+    map.scrollZoom.disable();
+    map.keyboard.disable();
+    map.doubleClickZoom.disable();
+    map.dragPan.disable();
+    map.dragRotate.disable();
+    map.touchZoomRotate.disable();
+    map.getCanvas().style.cursor = "default";
+
+    var popup = new mapboxgl.Popup({
+      className: "popup",
+      closeButton: false,
+      closeOnClick: false,
+      offset: [0, -5],
+    });
+
+    // is device a mobile?
+    var zoomFactor = window.innerWidth < 768
+
+    var chapters = {
+      ch1: {
+        center: [32.53336, 50.40322],
+        zoom: zoomFactor ? 0 : 2.2,
+        pitch: 0,
+        bearing: 0,
+      },
+      ch2: {
+        center: [30.83336, 48.40322],
+        zoom: zoomFactor ? 3.7 : 5.2,
+        pitch: 0,
+        bearing: 0,
+      },
+      ch3: {
+        center: [zoomFactor ? 10 : 2.27722, 45.81853],
+        zoom: zoomFactor ? 2 : 3.2,
+        pitch: 15.00,
+        bearing: 0.00
+      },
+      ch4: {
+        center: [zoomFactor ? 10 : 2.27722, 45.81853],
+        zoom: zoomFactor ? 2 : 3.2,
+        pitch: 15.00,
+        bearing: 0.00
+      },
+      ch5: {
+        center: [121, 24],
+        zoom: zoomFactor ? 5.5 : 6.4,
+        pitch: 52.50,
+        bearing: -50.00
+      },
+      ch6: {
+        center: [34.75297, 31.2],
+        zoom: zoomFactor ? 5.5 : 7.4,
+        pitch: 52.50,
+        bearing: 60.00
+      },
+      ch7: {
+        center: [45, 28],
+        zoom: zoomFactor ? 2.5 : 3.5,
+        pitch: 0,
+        bearing: 0.00
+      },
+      ch8: {
+        center: [zoomFactor ? 30 : 22.27722, 45.81853],
+        zoom: zoomFactor ? 2 : 3.2,
+        pitch: 15.00,
+        bearing: 0.00
+      },
+      ch9: {
+        center: [zoomFactor ? 20 : -20, 60],
+        zoom: zoomFactor ? 1.5 : 2.8,
+        pitch: 0,
+        bearing: 0.00
+      },
+      ch10: {
+        center: [-100, 90],
+        zoom: zoomFactor ? .5 : 2.5,
+        pitch: 0,
+        bearing: 0.00
+      },
+      ch11: {
+        center: [zoomFactor ? -98 : -117.79505, 30.87410],
+        zoom: zoomFactor ? 2.1 : 3.1,
+        pitch: 0.00,
+        bearing: 0.00
+      },
+      ch12: {
+        center: [zoomFactor ? -98 : -117.79505, 30.87410],
+        zoom: zoomFactor ? 2.1 : 3.1,
+        pitch: 0.00,
+        bearing: 0.00
+      },
+    };// On every scroll event, check which element is on screen
+    window.onscroll = function () {
+      // for cards
+      var chapterNames = Object.keys(chapters);
+      for (var i = 0; i < chapterNames.length; i++) {
+        var chapterName = chapterNames[i];
+        if (isElementOnScreen(chapterName)) {
+          setActiveChapter(chapterName);
+          break;
+        }
+      }
+    };
+
+    // COUNTRIES
+    map.on("style.load", function () {
+      // COUNTRIES
+      map.addSource("countries", {
+        type: "vector",
+        //   CHANGE url
+        url: "mapbox://cdtrich.3j3b139m",
+      });
+      map.addLayer({
+        // name as in mapbox
+        id: "countries",
+        // data type
+        type: "fill",
+        source: "countries",
+        "source-layer": "countries-0lh293", // CHANGE this with the name of the layer
+        layout: {
+          visibility: "none",
+        },
+        paint: {
+          "fill-color": "#000000",
+          "fill-opacity": .1,
+          "fill-outline-color": "#000000",
+        },
+      });
+
+      // UKRAINE ACLED
+      map.addSource("ukr-acled", {
+        type: "vector",
+        //   CHANGE url
+        url: "mapbox://cdtrich.a7vs51eh",
+      });
+      // https://docs.mapbox.com/style-spec/reference/layers/#paint-circle-circle-stroke-color
+      map.addLayer({
+        // name as in mapbox (preset in geojson file - leave as "name": "points")
+        id: "ukr-acled",
+        //   data type
+        type: "circle",
+        source: "ukr-acled",
+        "source-layer": "ukr-acled-8l1q78", // CHANGE this with the name of the layer
+        layout: {
+          visibility: "none",
+        },
+        paint: {
+          "circle-opacity": .5,
+          "circle-radius": 2,
+          "circle-color": "#df3144",
+        }
+      });
+
+      // UKRAINE BELLINGCAT
+      map.addSource("ukr-bel", {
+        type: "vector",
+        //   CHANGE url
+        url: "mapbox://cdtrich.cubinkf2",
+      });
+      map.addLayer({
+        // name as in mapbox (preset in geojson file - leave as "name": "points")
+        id: "ukr-bel",
+        //   data type
+        type: "circle",
+        source: "ukr-bel",
+        "source-layer": "ukr-bel-3bepc3", // CHANGE this with the name of the layer
+        layout: {
+          visibility: "none",
+        },
+        paint: {
+          "circle-radius": 2,
+          "circle-opacity": .5,
+          "circle-color": "#309ebe",
+        }
+      });
+
+      // US FORCES
+      map.addSource("us-forces", {
+        type: "vector",
+        //   CHANGE url
+        url: "mapbox://cdtrich.56io2vru",
+      });
+      map.addLayer({
+        // name as in mapbox (preset in geojson file - leave as "name": "points")
+        id: "us-forces",
+        //   data type
+        type: "circle",
+        source: "us-forces",
+        "source-layer": "us-forces-868l1d", // CHANGE this with the name of the layer
+        layout: {
+          visibility: "none",
+        },
+        paint: {
+          "circle-opacity": .8,
+          "circle-color": "#1d3956",
+          "circle-radius": [
+            "*",
+            [
+              "sqrt",
+              [
+                "/",
+                ["get", "Personnel"],
+                3.14159
+              ]
+            ],
+            zoomFactor ? .25 : .45
+          ]
+        }
+      });
+
+      // US ARMS EXPORTS
+      map.addSource("us-arms", {
+        type: "vector",
+        //   CHANGE url
+        url: "mapbox://cdtrich.51oa7pxo",
+      });
+      map.addLayer({
+        // name as in mapbox 
+        id: "us-arms",
+        //   data type
+        type: "circle",
+        source: "us-arms",
+        "source-layer": "us-arms-5a8w3d", // CHANGE this with the name of the layer
+        layout: {
+          visibility: "none",
+        },
+        paint: {
+          "circle-opacity": .66,
+          "circle-color": "#309ebe",
+          "circle-radius": [
+            "*",
+            [
+              "sqrt",
+              [
+                "/",
+                ["get", "val"],
+                3.14159
+              ]
+            ],
+            zoomFactor ? 3 : 6
+          ]
+        }
+      });
+      // SECOND LAYER FOR TOTAL 100% circle
+      map.addLayer({
+        // name as in mapbox 
+        id: "us-arms-total",
+        //   data type
+        type: "circle",
+        source: "us-arms",
+        "source-layer": "us-arms-5a8w3d", // CHANGE this with the name of the layer
+        layout: {
+          visibility: "none",
+        },
+        paint: {
+          "circle-opacity": 0,
+          "circle-color": "#fff",
+          "circle-stroke-opacity": 1,
+          "circle-stroke-color": "#309ebe",
+          "circle-stroke-width": 1,
+          "circle-radius": [
+            "*",
+            [
+              "sqrt",
+              [
+                "/",
+                100,
+                3.14159
+              ]
+            ],
+            zoomFactor ? 3 : 6
+          ]
+        }
+      });
+
+      // CHINA
+      map.addSource("taiwan", {
+        type: "vector",
+        //   CHANGE url
+        url: "mapbox://cdtrich.8gsncj90",
+      });
+      // fill
+      map.addLayer({
+        // name as in mapbox
+        id: "taiwan",
+        // data type
+        type: "fill",
+        source: "taiwan",
+        "source-layer": "taiwan-1sdzyj", // CHANGE this with the name of the layer
+        layout: {
+          visibility: "none",
+          'fill-sort-key': ['+', ['get', 'year']]
+        },
+        paint: {
+          "fill-color": [
+            "match",
+            ["get", "year"],
+            2022,
+            "#999999",
+            2024,
+            "#df3144",
+            "#999999"
+          ],
+          "fill-opacity": 0.1,
+        },
+      });
+      // outline
+      map.addLayer({
+        // name as in mapbox
+        id: "taiwan-line",
+        // data type
+        type: "line",
+        source: "taiwan",
+        "source-layer": "taiwan-1sdzyj", // CHANGE this with the name of the layer
+        layout: {
+          visibility: "none",
+          "line-join": "round"
+        },
+        paint: {
+          "line-color": [
+            "match",
+            ["get", "year"],
+            2022,
+            "#999999",
+            2024,
+            "#df3144",
+            "#999999"
+          ],
+          "line-width": 2,
+          "line-dasharray": [2, 2]
+        },
+      });
+
+      // WB
+      map.addSource("wb", {
+        type: "vector",
+        //   CHANGE url
+        url: "mapbox://cdtrich.5zdfflp6",
+      });
+      map.addLayer({
+        // name as in mapbox (preset in geojson file - leave as "name": "points")
+        id: "wb",
+        //   data type
+        type: "circle",
+        source: "wb",
+        "source-layer": "wb-1iqubf", // CHANGE this with the name of the layer
+        layout: {
+          visibility: "none",
+          'circle-sort-key': ['-', ['get', 'value']]
+        },
+        paint: {
+          "circle-opacity": .5,
+          "circle-color": [
+            "match",
+            ["get", "name"],
+            "KFOR",
+            "#df3144",
+            "EUFOR Althea",
+            "#1d3956",
+            "#999999"
+          ],
+          "circle-radius": [
+            "*",
+            [
+              "sqrt",
+              [
+                "/",
+                ["get", "value"],
+                3.14159
+              ]
+            ],
+            zoomFactor ? .8 : 2
+          ]
+        }
+      });
+
+      // ISRAEL-PALESTINE
+      map.addSource("isr-acled", {
+        type: "vector",
+        //   CHANGE url
+        url: "mapbox://cdtrich.4td4oh3u",
+      });
+      map.addLayer({
+        // name as in mapbox (preset in geojson file - leave as "name": "points")
+        id: "isr-acled",
+        //   data type
+        type: "circle",
+        source: "isr-acled",
+        "source-layer": "isr-acled-9iotcc", // CHANGE this with the name of the layer
+        layout: {
+          visibility: "none",
+          "circle-sort-key": [
+            "-",
+            ["to-number", ["get", "event_date"]]
+          ]
+        },
+        paint: {
+          "circle-opacity": .33,
+          "circle-color": [
+            "match",
+            ["get", "actor"],
+            "Military forces of Israel",
+            "#1d3956",
+            "Hamas",
+            "#df3144",
+            "Hezbollah",
+            "#ffde75",
+            "#C6C6C6"
+          ],
+          "circle-radius": zoomFactor ? 1.5 : 3
+        }
+      });
+
+      // IRAN
+      map.addSource("irn", {
+        type: "vector",
+        //   CHANGE url
+        url: "mapbox://cdtrich.ckwzszd1",
+      });
+      map.addLayer({
+        // name as in mapbox (preset in geojson file - leave as "name": "points")
+        id: "irn",
+        //   data type
+        type: "fill",
+        source: "irn",
+        "source-layer": "iran-0zxinr", // CHANGE this with the name of the layer
+        layout: {
+          visibility: "none",
+        },
+        paint: {
+          "fill-opacity": .66,
+          "fill-color": "#df3144",
+        }
+      });
+
+      // LNG TRADE
+      map.addSource("lng-trade", {
+        type: "vector",
+        //   CHANGE url
+        url: "mapbox://cdtrich.85exktrv",
+      });
+      map.addLayer({
+        // name as in mapbox (preset in geojson file - leave as "name": "points")
+        id: "lng-trade",
+        //   data type
+        type: "line",
+        source: "lng-trade",
+        "source-layer": "lng_trade-7b0081", // CHANGE this with the name of the layer
+        layout: {
+          visibility: "none",
+          'line-join': 'round',
+          'line-cap': 'round',
+          'line-sort-key': ['+', ['get', 'Value']]
+        },
+        paint: {
+          "line-opacity": .66,
+          "line-color": [
+            "interpolate",
+            ["linear"],
+            ["get", "Value"],
+            0,
+            "#309ebe",
+            15,
+            "#376882",
+            30,
+            "#1d3956",
+          ],
+          "line-width": [
+            "interpolate",
+            ["linear"],
+            ["get", "Value"],
+            0,
+            0,
+            30,
+            zoomFactor ? 10 : 20,
+          ]
+        }
+      });
+
+      // ARTIFICIAL INTELLIGENCE
+      map.addSource("artint", {
+        type: "vector",
+        //   CHANGE url
+        url: "mapbox://cdtrich.91w6kxjg",
+      });
+      map.addLayer({
+        // name as in mapbox (preset in geojson file - leave as "name": "points")
+        id: "artint",
+        //   data type
+        type: "circle",
+        source: "artint",
+        "source-layer": "artint-5j7kxg", // CHANGE this with the name of the layer
+        layout: {
+          visibility: "none",
+          'circle-sort-key': ['-', ['get', 'val']]
+        },
+        paint: {
+          "circle-opacity": .66,
+          "circle-radius": [
+            "*",
+            [
+              "sqrt",
+              [
+                "/",
+                ["get", "val"],
+                3.14159
+              ]
+            ],
+            zoomFactor ? 10 : 30
+          ],
+          "circle-color": "#33163a",
+          // "circle-stroke-color": "#33163a",
+          // "circle-stroke-width": 1,
+        }
+      });
+
+      // DOMESTIC VIOLENCE
+      map.addSource("domestic", {
+        type: "vector",
+        //   CHANGE url
+        url: "mapbox://cdtrich.2y063cp2",
+      });
+      map.addLayer({
+        // name as in mapbox (preset in geojson file - leave as "name": "points")
+        id: "domestic",
+        //   data type
+        type: "circle",
+        source: "domestic",
+        "source-layer": "domestic-9j9mhb", // CHANGE this with the name of the layer
+        layout: {
+          visibility: "none",
+          'circle-sort-key': ['-', ['get', 'n']]
+        },
+        paint: {
+          "circle-opacity": .66,
+          "circle-radius": [
+            "*",
+            [
+              "sqrt",
+              [
+                "/",
+                ["get", "n"],
+                3.14159
+              ]
+            ],
+            zoomFactor ? 2 : 5
+          ],
+          "circle-color": [
+            "match",
+            ["get", "President"],
+            "Biden",
+            "#1d3956",
+            "#df3144"
+          ]
+        }
+      });
+
+      // DOMESTIC VIOLENCE
+      map.addSource("latam", {
+        type: "vector",
+        //   CHANGE url
+        url: "mapbox://cdtrich.0202unuk",
+      });
+      map.addLayer({
+        // name as in mapbox (preset in geojson file - leave as "name": "points")
+        id: "latam",
+        //   data type
+        type: "circle",
+        source: "latam",
+        "source-layer": "latam-86782v", // CHANGE this with the name of the layer
+        layout: {
+          visibility: "none",
+          'circle-sort-key': ['-', ['get', 'n']]
+        },
+        paint: {
+          "circle-opacity": .66,
+          "circle-radius": [
+            "*",
+            [
+              "sqrt",
+              [
+                "/",
+                ["get", "n"],
+                3.14159
+              ]
+            ],
+            5
+          ],
+          "circle-color": [
+            "match",
+            ["get", "President"],
+            "Biden",
+            "#1d3956",
+            "#df3144"
+          ]
+        }
+      });
+
+    });
+
+    // TOOLTIPS
+    // ukr-acled
+    map.on("mousemove", "ukr-bel", function (e) {
+      map.getCanvas().style.cursor = "pointer"; var features = map.queryRenderedFeatures(e.point, {
+        layers: ["ukr-bel"], // replace this with the name of the layer (preset in geojson file - leave as "name": "points")
+      }); if (!features.length) {
+        return;
+      }
+
+      var props = features[0].properties;
+      var state = features[0].state;    // tooltip
+      var feature = features[0];
+
+      popup
+        .setLngLat(e.lngLat)
+        .setHTML(
+          '<span style="font-weight:bold; font-family:PT+Sans">' +
+          feature.properties.date +
+          '</span>'
+          +
+          '<br>' +
+          '<span style="font-family:PT+Sans">' +
+          feature.properties.description +
+          '</span>'
+        )
+        .addTo(map);
+    });
+    // Change it back to a pointer when it leaves.
+    map.on("mouseleave", "ukr-bel", function () {
+      map.getCanvas().style.cursor = "default";
+      popup.remove();
+    });
+
+    // us-forces
+    map.on("mousemove", "us-forces", function (e) {
+      map.getCanvas().style.cursor = "pointer"; var features = map.queryRenderedFeatures(e.point, {
+        layers: ["us-forces"], // replace this with the name of the layer (preset in geojson file - leave as "name": "points")
+      }); if (!features.length) {
+        return;
+      }
+
+      var props = features[0].properties;
+      var state = features[0].state;    // tooltip
+      var feature = features[0];
+
+      popup
+        .setLngLat(e.lngLat)
+        .setHTML(
+          '<span font-family:PT+Sans">' +
+          '<b>' + feature.properties.name + '</b>' + " | " + feature.properties.Command +
+          '</span>'
+          +
+          '<br>' +
+          '<span style="font-family:PT+Sans">' +
+          feature.properties.Personnel.toLocaleString('fr-FR', { useGrouping: true }) + " personnel" +
+          '</span>'
+        )
+        .addTo(map);
+    });
+    // Change it back to a pointer when it leaves.
+    map.on("mouseleave", "us-forces", function () {
+      map.getCanvas().style.cursor = "default";
+      popup.remove();
+    });
+
+    // us-arms-total
+    map.on("mousemove", "us-arms-total", function (e) {
+      map.getCanvas().style.cursor = "pointer"; var features = map.queryRenderedFeatures(e.point, {
+        layers: ["us-arms-total"], // replace this with the name of the layer (preset in geojson file - leave as "name": "points")
+      }); if (!features.length) {
+        return;
+      }
+
+      var props = features[0].properties;
+      var state = features[0].state;    // tooltip
+      var feature = features[0];
+
+      popup
+        .setLngLat(e.lngLat)
+        .setHTML(
+          '<span font-family:PT+Sans">' +
+          '<b>' + feature.properties.country + '</b>' +
+          '</span>'
+          +
+          '<br>' +
+          '<span style="font-family:PT+Sans">' +
+          feature.properties.val + " % of total imports" +
+          '</span>'
+        )
+        .addTo(map);
+    });
+    // Change it back to a pointer when it leaves.
+    map.on("mouseleave", "us-arms-total", function () {
+      map.getCanvas().style.cursor = "default";
+      popup.remove();
+    });
+
+    // wb
+    map.on("mousemove", "wb", function (e) {
+      map.getCanvas().style.cursor = "pointer"; var features = map.queryRenderedFeatures(e.point, {
+        layers: ["wb"], // replace this with the name of the layer (preset in geojson file - leave as "name": "points")
+      }); if (!features.length) {
+        return;
+      }
+
+      var props = features[0].properties;
+      var state = features[0].state;    // tooltip
+      var feature = features[0];
+
+      popup
+        .setLngLat(e.lngLat)
+        .setHTML(
+          '<span font-family:PT+Sans">' +
+          '<b>' + feature.properties.country + '</b>' +
+          '</span>'
+          +
+          '<br>' +
+          '<span style="font-family:PT+Sans">' +
+          feature.properties.name +
+          '</span>' +
+          '<br>' +
+          '<span style="font-family:PT+Sans">' +
+          feature.properties.value.toLocaleString('fr-FR', { useGrouping: true }) + " personnel" +
+          '</span>'
+        )
+        .addTo(map);
+    });
+    // Change it back to a pointer when it leaves.
+    map.on("mouseleave", "wb", function () {
+      map.getCanvas().style.cursor = "default";
+      popup.remove();
+    });
+
+    // iran
+    map.on("mousemove", "irn", function (e) {
+      map.getCanvas().style.cursor = "pointer"; var features = map.queryRenderedFeatures(e.point, {
+        layers: ["irn"], // replace this with the name of the layer (preset in geojson file - leave as "name": "points")
+      }); if (!features.length) {
+        return;
+      }
+
+      var props = features[0].properties;
+      var state = features[0].state;    // tooltip
+      var feature = features[0];
+
+      popup
+        .setLngLat(e.lngLat)
+        .setHTML(
+          '<span font-family:PT+Sans">' +
+          '<b>' + feature.properties.country + '</b>' +
+          '</span>'
+          +
+          '<br>' +
+          '<span style="font-family:PT+Sans">' +
+          "Group: " + feature.properties.name +     (feature.properties.name_full ? " (" + feature.properties.name_full + ")" : "") +
+          '</span>' +
+          '<br>' +
+          '<span style="font-family:PT+Sans">' +
+          "Membership: " + (feature.properties.name === "Hamas" ? feature.properties.val.toLocaleString('fr-FR', { useGrouping: true }) + " " : "") + feature.properties.note +
+          '</span>'
+        )
+        .addTo(map);
+    });
+    // Change it back to a pointer when it leaves.
+    map.on("mouseleave", "irn", function () {
+      map.getCanvas().style.cursor = "default";
+      popup.remove();
+    });
+
+    // taiwan
+    map.on("mousemove", "taiwan", function (e) {
+      map.getCanvas().style.cursor = "pointer"; var features = map.queryRenderedFeatures(e.point, {
+        layers: ["taiwan"], // replace this with the name of the layer (preset in geojson file - leave as "name": "points")
+      }); if (!features.length) {
+        return;
+      }
+
+      var props = features[0].properties;
+      var state = features[0].state;    // tooltip
+      var feature = features[0];
+
+      popup
+        .setLngLat(e.lngLat)
+        .setHTML(
+          '<span font-family:PT+Sans">' +
+          feature.properties.year +
+          '</span>'
+        )
+        .addTo(map);
+    });
+    // Change it back to a pointer when it leaves.
+    map.on("mouseleave", "taiwan", function () {
+      map.getCanvas().style.cursor = "default";
+      popup.remove();
+    });
+
+    // lng-trade
+    map.on("mousemove", "lng-trade", function (e) {
+      map.getCanvas().style.cursor = "pointer"; var features = map.queryRenderedFeatures(e.point, {
+        layers: ["lng-trade"], // replace this with the name of the layer (preset in geojson file - leave as "name": "points")
+      }); if (!features.length) {
+        return;
+      }
+
+      var props = features[0].properties;
+      var state = features[0].state;    // tooltip
+      var feature = features[0];
+
+      popup
+        .setLngLat(e.lngLat)
+        .setHTML(
+          '<span font-family:PT+Sans">' +
+          "To " +
+          '<b>' + feature.properties.To + '</b>' +
+          '</span>'
+          +
+          '<br>' +
+          '<span style="font-family:PT+Sans">' +
+          "Capacity: " + feature.properties.Value + " bcm (in 2023)" +
+          '</span>'
+        )
+        .addTo(map);
+    });
+    // Change it back to a pointer when it leaves.
+    map.on("mouseleave", "lng-trade", function () {
+      map.getCanvas().style.cursor = "default";
+      popup.remove();
+    });
+
+    // isr-acled
+    map.on("mousemove", "isr-acled", function (e) {
+      map.getCanvas().style.cursor = "pointer"; var features = map.queryRenderedFeatures(e.point, {
+        layers: ["isr-acled"], // replace this with the name of the layer (preset in geojson file - leave as "name": "points")
+      }); if (!features.length) {
+        return;
+      }
+
+      var props = features[0].properties;
+      var state = features[0].state;    // tooltip
+      var feature = features[0];
+
+      popup
+        .setLngLat(e.lngLat)
+        .setHTML(
+          '<span font-family:PT+Sans">' +
+          '<b>' + feature.properties.location + '</b>' +
+          '</span>'
+          +
+          '<br>' +
+          '<span style="font-family:PT+Sans">' +
+          feature.properties.actor +
+          '<br>' +
+          feature.properties.event_date +
+          '</span>'
+        )
+        .addTo(map);
+    });
+    // Change it back to a pointer when it leaves.
+    map.on("mouseleave", "isr-acled", function () {
+      map.getCanvas().style.cursor = "default";
+      popup.remove();
+    });
+
+    // artint
+    map.on("mousemove", "artint", function (e) {
+      map.getCanvas().style.cursor = "pointer"; var features = map.queryRenderedFeatures(e.point, {
+        layers: ["artint"], // replace this with the name of the layer (preset in geojson file - leave as "name": "points")
+      }); if (!features.length) {
+        return;
+      }
+
+      var props = features[0].properties;
+      var state = features[0].state;    // tooltip
+      var feature = features[0];
+
+      popup
+        .setLngLat(e.lngLat)
+        .setHTML(
+          '<span font-family:PT+Sans">' +
+          '<b>' + feature.properties.NAME_ENGL + '</b>' +
+          '</span>'
+          +
+          '<br>' +
+          '<span style="font-family:PT+Sans">' +
+          feature.properties.val + ' companies' +
+          '</span>'
+        )
+        .addTo(map);
+    });
+    // Change it back to a pointer when it leaves.
+    map.on("mouseleave", "artint", function () {
+      map.getCanvas().style.cursor = "default";
+      popup.remove();
+    });
+
+    // domestic
+    map.on("mousemove", "domestic", function (e) {
+      map.getCanvas().style.cursor = "pointer"; var features = map.queryRenderedFeatures(e.point, {
+        layers: ["domestic"], // replace this with the name of the layer (preset in geojson file - leave as "name": "points")
+      }); if (!features.length) {
+        return;
+      }
+
+      var props = features[0].properties;
+      var state = features[0].state;    // tooltip
+      var feature = features[0];
+
+      popup
+        .setLngLat(e.lngLat)
+        .setHTML(
+          '<span font-family:PT+Sans">' +
+          '<b>' + feature.properties.n + '</b>' +
+          '</span>'
+          +
+          '<br>' +
+          '<span style="font-family:PT+Sans">' +
+          feature.properties.location +
+          " (approximate location)" +
+          '</span>'
+        )
+        .addTo(map);
+    });
+    // Change it back to a pointer when it leaves.
+    map.on("mouseleave", "domestic", function () {
+      map.getCanvas().style.cursor = "default";
+      popup.remove();
+    });
+
+    // latam
+    map.on("mousemove", "latam", function (e) {
+      map.getCanvas().style.cursor = "pointer"; var features = map.queryRenderedFeatures(e.point, {
+        layers: ["latam"], // replace this with the name of the layer (preset in geojson file - leave as "name": "points")
+      }); if (!features.length) {
+        return;
+      }
+
+      var props = features[0].properties;
+      var state = features[0].state;    // tooltip
+      var feature = features[0];
+
+      popup
+        .setLngLat(e.lngLat)
+        .setHTML(
+          '<span font-family:PT+Sans">' +
+          '<b>' + feature.properties.city + '</b>' +
+          '</span>' +
+          '<br>' +
+          '<span style="font-family:PT+Sans">' +
+          feature.properties.state +
+          '</span>'
+        )
+        .addTo(map);
+    });
+    // Change it back to a pointer when it leaves.
+    map.on("mouseleave", "latam", function () {
+      map.getCanvas().style.cursor = "default";
+      popup.remove();
+    });
+
+
+    var activeChapterName = "ch1";
+
+    function setActiveChapter(chapterName) {
+      if (chapterName === activeChapterName) return;
+
+      var legendContent = '';  // Initialize legend content
+
+      // POINTS and COUNTRIES
+      if (chapterName === "ch1") {
+        // backscroll
+        map.setLayoutProperty("ukr-acled", 'visibility', 'none');
+        map.setLayoutProperty("ukr-bel", 'visibility', 'none');
+        legendContent = ''; // No legend for ch1
+        // UKRAINE and TEXT
+      } else if (chapterName === "ch2") {
+        map.setLayoutProperty("ukr-acled", 'visibility', 'visible');
+        map.setLayoutProperty("ukr-bel", 'visibility', 'visible');
+        legendContent = document.getElementById('ukr-acled-legend').innerHTML;
+        // backscroll
+        map.setLayoutProperty("us-forces", 'visibility', 'none');
+      } else if (chapterName === "ch3") {
+        // ukr-acled out, ukr-kiel in
+        map.setLayoutProperty("ukr-acled", 'visibility', 'none');
+        map.setLayoutProperty("ukr-bel", 'visibility', 'none');
+        map.setLayoutProperty("us-forces", 'visibility', 'visible');
+        legendContent = document.getElementById('us-forces-legend').innerHTML;
+        // backscroll
+        map.setLayoutProperty("us-arms", 'visibility', 'none');
+        map.setLayoutProperty("us-arms-total", 'visibility', 'none');
+        // UKR-KIEL
+      } else if (chapterName === "ch4") {
+        map.setLayoutProperty("us-forces", 'visibility', 'none');
+        map.setLayoutProperty("us-arms", 'visibility', 'visible');
+        map.setLayoutProperty("us-arms-total", 'visibility', 'visible');
+        legendContent = document.getElementById('us-arms-legend').innerHTML;
+        // backscroll
+        map.setLayoutProperty("taiwan", 'visibility', 'none');
+        map.setLayoutProperty("taiwan-line", 'visibility', 'none');
+      } else if (chapterName === "ch5") {
+        // us-forces out, wb in 
+        map.setLayoutProperty("us-arms", 'visibility', 'none');
+        map.setLayoutProperty("us-arms-total", 'visibility', 'none');
+        map.setLayoutProperty("taiwan", 'visibility', 'visible');
+        map.setLayoutProperty("taiwan-line", 'visibility', 'visible');
+        legendContent = document.getElementById('taiwan-legend').innerHTML;
+        // backscroll
+        map.setLayoutProperty("isr-acled", 'visibility', 'none');
+      } else if (chapterName === "ch6") {
+        // wb out, isr in 
+        map.setProjection("globe");
+        map.setLayoutProperty("taiwan", 'visibility', 'none');
+        map.setLayoutProperty("taiwan-line", 'visibility', 'none');
+        map.setLayoutProperty("isr-acled", 'visibility', 'visible');
+        legendContent = document.getElementById('isr-acled-legend').innerHTML;
+        // backscroll
+        map.setLayoutProperty("irn", 'visibility', 'none');
+        map.setLayoutProperty("countries", 'visibility', 'none');
+      } else if (chapterName === "ch7") {
+        // israel out, iran in 
+        map.setLayoutProperty("isr-acled", 'visibility', 'none');
+        map.setLayoutProperty("irn", 'visibility', 'visible');
+        // highlight iran 
+        map.setLayoutProperty("countries", 'visibility', 'visible');
+        map.setPaintProperty("countries", 'fill-opacity', .2);
+        map.setFilter("countries", [
+          "all",
+          ["match", ["get", "NAME_ENGL"], "Iran", true, false],
+        ]);
+        map.setPaintProperty("countries", "fill-color", "#df3144");
+        legendContent = document.getElementById('irn-legend').innerHTML;
+        // backscroll
+        // map.setProjection("globe");
+        map.setLayoutProperty("wb", 'visibility', 'none');
+      } else if (chapterName === "ch8") {
+        // map.setProjection("equalEarth");
+        // xxx out, xxx in 
+        map.setLayoutProperty("irn", 'visibility', 'none');
+        map.setLayoutProperty("countries", 'visibility', 'none');
+        map.setLayoutProperty("wb", 'visibility', 'visible');
+        legendContent = document.getElementById('wb-legend').innerHTML;
+        // backscroll
+        map.setLayoutProperty("lng-trade", 'visibility', 'none');
+      } else if (chapterName === "ch9") {
+        // isr-acled stays 
+        map.setProjection("globe");
+        map.setLayoutProperty("wb", 'visibility', 'none');
+        map.setLayoutProperty("lng-trade", 'visibility', 'visible');
+        legendContent = document.getElementById('lng-legend').innerHTML;
+        // backscroll
+        map.setLayoutProperty("artint", 'visibility', 'none');
+      } else if (chapterName === "ch10") {
+        // map.setProjection("lambertConformalConic");
+        // isr-acled out, xxx in 
+        map.setLayoutProperty("lng-trade", 'visibility', 'none');
+        map.setLayoutProperty("artint", 'visibility', 'visible');
+        legendContent = document.getElementById('artint-legend').innerHTML;
+        // backscroll
+        map.setLayoutProperty("domestic", 'visibility', 'none');
+      } else if (chapterName === "ch11") {
+        map.setProjection("globe");
+        // irn-fuel out, irn-fac in 
+        map.setLayoutProperty("artint", 'visibility', 'none');
+        map.setLayoutProperty("domestic", 'visibility', 'visible');
+        legendContent = document.getElementById('domestic-legend').innerHTML;
+        // remove legend when scrolling past
+      } else if (chapterName === "ch12") {
+        document.getElementById('domestic-legend').style.display = 'none';
+      }
+
+      // Update the fixed legend content and visibility
+      var legendContainer = document.getElementById('fixed-legend');
+      if (legendContent) {
+        legendContainer.innerHTML = legendContent;
+        legendContainer.style.display = 'block';
+      } else {
+        legendContainer.style.display = 'none';
+      }
+
+      map.flyTo(chapters[chapterName]); document.getElementById(chapterName).setAttribute("class", "active");
+      document.getElementById(activeChapterName).setAttribute("class", "");
+      activeChapterName = chapterName;
+    }
+    function isElementOnScreen(id) {
+      var element = document.getElementById(id);
+      var bounds = element.getBoundingClientRect();
+      return bounds.top < window.innerHeight && bounds.bottom > 0;
+    }
+
+  </script>
+
+  <!-- pudding scrolly -->
+  <script>
+    enterView({
+      selector: stepSel.nodes(),
+      offset: 0.5,
+      enter: el => {
+        const index = +d3.select(el).attr('data-index');
+        updateChart(index);
+      },
+      exit: el => {
+        let index = +d3.select(el).attr('data-index');
+        index = Math.max(0, index - 1);
+        updateChart(index);
+      }
+    });
+  </script>
+
+  <!-- collapsible -->
+  <script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight) {
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      });
+    }
+  </script>
