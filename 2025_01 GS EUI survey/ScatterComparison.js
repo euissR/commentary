@@ -31,6 +31,7 @@ export class ScatterComparison {
       // subtitle:
       //   "Only questions from EU survey with equivalents in US survey. The EU is more worried than US in only in two cases (Libya and Sahel).",
       marginLeft: 0,
+      marginBottom: 0,
       x: {
         domain: [
           "Tier III/Remote risk",

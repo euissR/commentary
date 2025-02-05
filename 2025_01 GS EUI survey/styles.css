@@ -1,7 +1,15 @@
+* {
+  font-family: "PT Sans", sans-serif;
+  font-size: 20px;
+}
+
 body {
   margin: 0;
-  font-family: "PT Sans Narrow", sans-serif;
-  line-height: 1.6;
+  font-family: "PT Sans", sans-serif;
+  line-height: calc(
+    30 / 16 * 1rem + (30 - 30) *
+      calc((var(--fluid-screen) - 360 / 16 * 1rem) / (1920 - 360))
+  );
 }
 
 .container,
@@ -40,15 +48,16 @@ body {
 }
 
 .card {
-  margin-bottom: 10vh; /* This spaces out the cards */
+  margin-bottom: 80vh; /* This spaces out the cards */
   background-color: white;
   padding: 20px;
-  opacity: 1;
+  opacity: 0.5;
   transition: opacity 0.3s;
 }
 
 .card.active {
   opacity: 1;
+  border: 1px solid #000;
   /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
 }
 
@@ -57,6 +66,11 @@ body {
 .card[data-step="9"],
 .card[data-step="12"] {
   margin-bottom: 20vh; /* This spaces out the cards */
+}
+/* empty boxes, no border */
+.card[data-step="7"],
+.card[data-step="10"] {
+  opacity: 0;
 }
 
 #visualization-scatter > figure > svg > text,

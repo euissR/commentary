@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     },
     {
-      threshold: 0.75, // Trigger when 50% of the card is visible
+      threshold: 0.5, // Trigger when 50% of the card is visible
     }
   );
 
