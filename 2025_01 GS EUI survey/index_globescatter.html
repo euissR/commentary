@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Scrollytelling Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- globescatterplot -->
+    <div class="container">
+      <div class="scroll-content">
+        <div class="card" data-step="1">
+          <!-- <h2>Introduction</h2> -->
+          <p>
+            At the end of 2024, the survey asked close to 400 unique respondents
+            to rank the likelihood and expected impact of 30 predefined risks
+            affecting EU interests – defined as coherence, unity, security and
+            prosperity. The survey aims to generate strategic foresight for EU
+            foreign policy, analyse foreign policy alignment within the EU, and
+            facilitate transatlantic comparisons of strategic priorities.
+          </p>
+        </div>
+        <div class="card" data-step="2">
+          <!-- <h2>First Section</h2> -->
+          <p>
+            The top risks identified by experts range from Russia’s continued
+            aggression, to a potential US withdrawal from its security
+            guarantees, to war in the Middle East and the Indo-Pacific. Here, we
+            review the main risks and suggest what the EU should do to address
+            them in a proactive way.
+          </p>
+        </div>
+        <div class="card" data-step="3">
+          <h2>Appeasing Russia – in Ukraine and beyond</h2>
+          <p>
+            Experts overwhelmingly view the defeat of Ukraine as a critical
+            threat to EU interests, with a ceasefire favourable to Russia
+            emerging as the top risk for 2025. Russia’s full-scale invasion of
+            Ukraine and the Kremlin’s efforts to rewrite the post-Cold War order
+            in Europe have fundamentally disrupted the EU’s security. Today,
+            through its actions against Ukraine, Russia continues to put
+            pressure on EU unity and policy coherence. The concern that the
+            Trump administration could push for negotiations with Russia while
+            bypassing Ukraine and the EU’s interests likely contributed to the
+            high importance that the experts attached to this risk. If Moscow
+            were to secure a favourable ceasefire in Ukraine, leaving Kyiv
+            defenceless and without a path towards Euro-Atlantic integration,
+            the Kremlin could rearm and launch another attack in the near
+            future.
+          </p>
+          <p>
+            EU experts also identify a high risk of new Russian military action
+            in non-NATO neighbouring states. They furthermore foresee the risks
+            emerging from the formation of pro-Russian governments in Georgia,
+            and potentially in Moldova. However, the experts consider the risk
+            of a confrontation between NATO and Russia to be moderate, assessing
+            this to be of relatively low likelihood, reflecting confidence in
+            NATO’s capacity to deter direct Russian attacks.
+          </p>
+        </div>
+        <div class="card" data-step="4">
+          <h2>US abandonment – in Europe and the Pacific</h2>
+          <p>
+            The withdrawal of American security guarantees to Europe also ranks
+            among EU experts’ top concerns for 2025. Remarkably, in the view of
+            these experts, US abandonment would have as high an impact on the EU
+            as a Russian nuclear strike. This metric captures EU reliance on the
+            United States for its security as perceived by the experts who
+            clearly take President Donald Trump’s threat of not honouring US
+            pledges towards NATO allies very seriously.
+          </p>
+          <p>
+            Moreover, experts view a direct US-China military confrontation as
+            unlikely in the short term, despite rating the likelihood of a
+            cross-strait conflict between China and Taiwan as moderately high
+            and the chances of Chinese aggression in the South China Sea as
+            extremely high. This finding suggests that, in the event of Chinese
+            aggression against US allies like Taiwan or the Philippines, the
+            Trump administration would not act decisively to defend US interests
+            in the region in 2025. However, EU experts acknowledge the
+            significant impact that a potential US-China conflict would have on
+            EU interests, reflecting the far-reaching influence of great power
+            competition on global stability, EU security and economic
+            prosperity.
+          </p>
+        </div>
+        <div class="card" data-step="5">
+          <h2>Hybrid and cyber threats</h2>
+          <p>
+            Experts rank the risk of disruptive hybrid attacks on EU
+            infrastructure among the top threats to EU interests in 2025. Their
+            assessment aligns with reports pointing to a heightened
+            cybersecurity threat, driven by increased activity from hacktivists,
+            cybercriminals and state-sponsored groups, especially since Russia’s
+            full-scale invasion of Ukraine.
+          </p>
+          <p>
+            Additionally, the response reflects the growing frequency of
+            physical attacks on critical infrastructure such as sabotaging
+            subsea cables or burning ammunition factories. While direct conflict
+            between NATO and Russia remains a lower-likelihood risk, European
+            experts see a large-scale hybrid attack as having a moderate
+            likelihood of occurring and of constituting a high-impact threat.
+          </p>
+        </div>
+        <div class="card" data-step="6">
+          <h2>No durable peace in the Middle East</h2>
+          <p>
+            Experts predict that a lasting ceasefire between Israel and Hamas is
+            unlikely in 2025, ranking the ongoing conflict as one of the top
+            risks to EU interests. Although a fragile ceasefire was brokered in
+            January 2025, the absence of a long-term strategy to forge peace
+            between the two sides will sustain high levels of tension. According
+            to experts, this conflict will continue to strain the unity and
+            coherence of EU policy in the Middle East. They also acknowledge the
+            potential risk of a large-scale military confrontation between Iran
+            and Israel, which they view as moderately likely to occur and
+            believe would be highly impactful on EU interests.
+          </p>
+          <p>
+            In the Middle East geopolitical landscape, experts rank the collapse
+            of the state of Lebanon as highly likely, though with moderate
+            repercussions on EU interests. However, any of these conflicts could
+            trigger large-scale migration towards the EU, which is seen as a
+            high-risk scenario that would have a major impact on the continent.
+          </p>
+        </div>
+      </div>
+      <div class="sticky-container">
+        <div id="visualization"></div>
+      </div>
+      <div class="tooltip"></div>
+    </div>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
