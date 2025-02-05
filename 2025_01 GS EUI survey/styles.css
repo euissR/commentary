@@ -51,13 +51,13 @@ body {
   margin-bottom: 80vh; /* This spaces out the cards */
   background-color: white;
   padding: 20px;
-  opacity: 0.5;
-  transition: opacity 0.3s;
+  opacity: 1;
+  /* transition: opacity 0.3s; */
 }
 
 .card.active {
   opacity: 1;
-  border: 1px solid #000;
+  /* border: 1px solid #000; */
   /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
 }
 
