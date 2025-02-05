@@ -6,10 +6,7 @@
 body {
   margin: 0;
   font-family: "PT Sans", sans-serif;
-  line-height: calc(
-    30 / 16 * 1rem + (30 - 30) *
-      calc((var(--fluid-screen) - 360 / 16 * 1rem) / (1920 - 360))
-  );
+  line-height: 1.4;
 }
 
 .container,
@@ -24,7 +21,8 @@ body {
 .scroll-content-scatter,
 .scroll-content-comparison {
   width: 40%;
-  padding: 20px;
+  padding-right: 20px;
+  padding-left: 0;
 }
 
 .sticky-container {
@@ -85,8 +83,15 @@ body {
   font-size: 12px;
 }
 
+#visualization > svg > g > text,
+#visualization > svg > g > g > text,
+#visualization > svg > g > g > g > text {
+  font-size: 12px;
+}
+
 .tooltip {
   position: absolute;
+  font-size: 12px;
   padding: 10px;
   background: #fff;
   border-radius: 4px;
