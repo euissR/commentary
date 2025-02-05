@@ -20,7 +20,7 @@ body {
 .scroll-content,
 .scroll-content-scatter,
 .scroll-content-comparison {
-  width: 40%;
+  width: 50%;
   padding-right: 20px;
   padding-left: 0;
 }
@@ -28,7 +28,7 @@ body {
 .sticky-container {
   position: sticky;
   top: 0;
-  width: 60%;
+  width: 50%;
   height: 100vh;
   display: flex;
   justify-content: center;
