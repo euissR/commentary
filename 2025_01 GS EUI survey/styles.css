@@ -1,0 +1,57 @@
+body {
+  margin: 0;
+  font-family: "PT Sans Narrow", sans-serif;
+  line-height: 1.6;
+}
+.container,
+.container-scatter {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+}
+.scroll-content,
+.scroll-content-scatter {
+  width: 50%;
+  padding: 20px;
+}
+.sticky-container {
+  position: sticky;
+  top: 0;
+  width: 50%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #f4f4f4; */
+}
+.card {
+  padding: 60vh 20px;
+  margin: 0;
+  background-color: white;
+  /* border: 1px solid #ddd; */
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+.card.active {
+  opacity: 1;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+}
+#visualization,
+#visualization-scatter {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* font-size: 24px; */
+}
+.tooltip {
+  position: absolute;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 1000;
+}
