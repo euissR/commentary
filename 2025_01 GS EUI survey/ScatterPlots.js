@@ -30,7 +30,7 @@ export class ScatterBase {
     return Plot.plot({
       width: this.width,
       height: this.width,
-      title: "Global means",
+      title: "Variation in average survey response",
       x: {
         domain: [2.8, 3.2],
         ticks: [2.8, 2.9, 3, 3.1, 3.2],
@@ -46,7 +46,7 @@ export class ScatterBase {
       },
       color: {
         range:
-          type === "Region"
+          type === "by region of origin"
             ? ["#df3144", "#33163a", "#E6C869", "#309ebe", "#999"]
             : ["#df3144", "#309ebe", "#1d3956"],
         legend: false,
@@ -84,11 +84,15 @@ export class ScatterBase {
           {
             x: isTransitioning ? "Likelihood_mean" : "Likelihood",
             y: isTransitioning ? "Impact_mean" : "Impact",
-            dx: 10,
+            dx: 8,
+            dy: -5,
             text: "name",
+            // fontSize: 16,
             fontWeight: 700,
             stroke: "#fff",
             strokeWidth: 3,
+            lineWidth: 7,
+            lineAnchor: "top",
             textAnchor: "start",
           }
         ),
@@ -98,10 +102,14 @@ export class ScatterBase {
           {
             x: isTransitioning ? "Likelihood_mean" : "Likelihood",
             y: isTransitioning ? "Impact_mean" : "Impact",
-            dx: 10,
+            dx: 8,
+            dy: -5,
             fill: "name",
             text: "name",
+            // fontSize: 16,
             fontWeight: 700,
+            lineWidth: 7,
+            lineAnchor: "top",
             textAnchor: "start",
           }
         ),
@@ -114,7 +122,7 @@ export class ScatterBase {
 export class ScatterRegion extends ScatterBase {
   constructor(container, width) {
     super(container, width);
-    this.type = "Region";
+    this.type = "by region of origin";
   }
 
   async render(isTransitioning = false) {
@@ -132,7 +140,7 @@ export class ScatterRegion extends ScatterBase {
 export class ScatterEmployer extends ScatterBase {
   constructor(container, width) {
     super(container, width);
-    this.type = "Employer";
+    this.type = "by sector";
   }
 
   async render(isTransitioning = false) {

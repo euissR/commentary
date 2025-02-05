@@ -6,6 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
     <script src="https://unpkg.com/topojson-client@3"></script>
     <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot"></script>
+    <script src="https://unpkg.com/scrollama"></script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -38,7 +39,6 @@
       <div class="container">
         <div class="scroll-content">
           <div class="card" data-step="1">
-            <!-- <h2>Introduction</h2> -->
             <p>
               At the end of 2024, the survey asked close to 400 unique
               respondents to rank the likelihood and expected impact of 30
@@ -50,7 +50,6 @@
             </p>
           </div>
           <div class="card" data-step="2">
-            <!-- <h2>First Section</h2> -->
             <p>
               The top risks identified by experts range from Russia’s continued
               aggression, to a potential US withdrawal from its security
@@ -172,7 +171,8 @@
       </p>
       <div class="container-scatter">
         <div class="scroll-content-scatter">
-          <div class="card" data-step="7">
+          <div class="card" data-step="7"></div>
+          <div class="card" data-step="8">
             <p>
               The Global Risks to the EU survey reveals overwhelming consensus
               among experts – across academia, think tanks, and policymaking
@@ -181,7 +181,7 @@
               academics.
             </p>
           </div>
-          <div class="card" data-step="8">
+          <div class="card" data-step="9">
             <p>
               The main risks are also recognised across the territory of the
               Union. Although there was once a divide between Eastern and
@@ -289,23 +289,35 @@
         European experts view the geopolitical threat landscape for the year
         ahead.
       </p>
-      <div id="visualization-comparison">
-        <script type="module" src="scat.js"></script>
+      <div class="container-comparison">
+        <div class="scroll-content-comparison">
+          <div class="card" data-step="10"></div>
+          <div class="card" data-step="11">
+            <p>
+              The results indicate a notable convergence of concerns on both
+              sides of the Atlantic – ranging from the potential for renewed
+              conflict with Russia, to the absence of peace in the Middle East,
+              to escalating tensions with China.
+            </p>
+          </div>
+          <div class="card" data-step="12">
+            <p>
+              A ceasefire favourable to Russia in Ukraine is a major risk for
+              both sides of the Atlantic, questioning the rush to secure a peace
+              deal from the Trump 2.0 administration. Neither American nor
+              European experts foresee lasting peace in the Middle East, raising
+              concerns over the fragility of the ceasefire brokered between
+              Israel and Hamas in January 2025. Experts also agree on the high
+              likelihood of Chinese aggression in the South China Sea (although
+              US respondents tend to place East Asia contingency in a higher
+              risk category than their EU counterparts).
+            </p>
+          </div>
+        </div>
+        <div class="sticky-container">
+          <div id="visualization-comparison"></div>
+        </div>
       </div>
-      <p>
-        The results indicate a notable convergence of concerns on both sides of
-        the Atlantic – ranging from the potential for renewed conflict with
-        Russia, to the absence of peace in the Middle East, to escalating
-        tensions with China. A ceasefire favourable to Russia in Ukraine is a
-        major risk for both sides of the Atlantic, questioning the rush to
-        secure a peace deal from the Trump 2.0 administration. Neither American
-        nor European experts foresee lasting peace in the Middle East, raising
-        concerns over the fragility of the ceasefire brokered between Israel and
-        Hamas in January 2025. Experts also agree on the high likelihood of
-        Chinese aggression in the South China Sea (although US respondents tend
-        to place East Asia contingency in a higher risk category than their EU
-        counterparts).
-      </p>
       <p>
         The transatlantic relationship will appear fragile in the shadow of a
         confrontational Trump administration and a fragmented European

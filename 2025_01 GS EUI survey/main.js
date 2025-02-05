@@ -1,15 +1,20 @@
 import { GlobeScatterPlot } from "./GlobeScatterPlot.js";
 import { ScatterRegion, ScatterEmployer } from "./ScatterPlots.js";
+import { ScatterComparisonRender } from "./ScatterComparison.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll(".card");
   const visualizationElement = document.getElementById("visualization");
   const scatterElement = document.getElementById("visualization-scatter");
+  const comparisonElement = document.getElementById("visualization-comparison");
 
   // Initialize visualizations
   const globeScatter = new GlobeScatterPlot(visualizationElement);
   const scatterRegion = new ScatterRegion(scatterElement);
   const scatterEmployer = new ScatterEmployer(scatterElement);
+  const scatterComparisonRender = new ScatterComparisonRender(
+    comparisonElement
+  );
 
   let currentVisualization = globeScatter;
 
@@ -26,14 +31,14 @@ document.addEventListener("DOMContentLoaded", () => {
           if (step < 7) {
             currentVisualization = globeScatter;
             globeScatter.toggleView(step >= 2, step);
-          } else if (step === 7) {
+          } else if (step === 8) {
             // Transition to Region scatter
             scatterElement.innerHTML = "";
             currentVisualization = scatterEmployer;
             scatterEmployer.render();
-          } else if (step === 8) {
+          } else if (step === 9) {
             // Transition to Employer scatter with animation
-            const transitionDuration = 1000;
+            const transitionDuration = 0;
 
             // First render Region with points at mean positions
             scatterEmployer.render(true).then(() => {
@@ -43,12 +48,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 scatterRegion.render();
               }, transitionDuration);
             });
+          } else if (step >= 10) {
+            currentVisualization = scatterComparisonRender;
+            scatterComparisonRender.render();
           }
         }
       });
     },
     {
-      threshold: 0.5,
+      threshold: 0.75, // Trigger when 50% of the card is visible
     }
   );
 
