@@ -49,7 +49,7 @@ export class ScatterComparison {
       },
       y: { label: null, grid: false },
       color: {
-        range: ["#309ebe", "#c6c6c6", "#df3144"],
+        range: ["#309ebe", "#aaa", "#df3144"],
         legend: true,
         reverse: true,
       },
@@ -61,7 +61,7 @@ export class ScatterComparison {
           x2: "us",
           y1: "question",
           y2: "question",
-          stroke: "#595959",
+          stroke: "#c6c6c6",
           markerEnd: "arrow",
         }),
         // eu
@@ -90,7 +90,7 @@ export class ScatterComparison {
           dx: 20,
           y: "question",
           text: "question",
-          fontWeight: 700,
+          // fontWeight: 700,
           lineWidth: 20,
           textAnchor: "start",
           lineAnchor: "middle",
