@@ -44,7 +44,7 @@ export class GlobeScatterPlot {
     ];
 
     this.matrixLabel = [
-      { x: 5, y: 4, type: "High risk", lineAnchor: "top", textAnchor: "start" },
+      { x: 4, y: 5, type: "High risk", lineAnchor: "top", textAnchor: "start" },
       {
         x: 5,
         y: 2,
