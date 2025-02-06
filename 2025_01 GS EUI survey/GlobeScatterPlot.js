@@ -16,6 +16,7 @@ export class GlobeScatterPlot {
 
     // Calculate scatter plot offset to center it vertically
     this.scatterOffsetY = (this.height - this.scatterHeight) / 2;
+    console.log(this.scatterOffsetY);
 
     this.init();
 
