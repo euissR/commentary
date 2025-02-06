@@ -27,7 +27,8 @@ export class ScatterComparison {
     return Plot.plot({
       width: this.width,
       height: this.width,
-      title: "Comparing results across the Atlantic",
+      title: " ",
+      // title: "Comparing results across the Atlantic",
       // subtitle:
       //   "Only questions from EU survey with equivalents in US survey. The EU is more worried than US in only in two cases (Libya and Sahel).",
       marginLeft: 0,
