@@ -87,7 +87,7 @@ p {
 #visualization > svg > g > text,
 #visualization > svg > g > g > text,
 #visualization > svg > g > g > g > text {
-  font-size: 1em;
+  font-size: medium;
   z-index: 0;
 }
 
