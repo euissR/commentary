@@ -5,6 +5,7 @@
   display: flex;
   max-width: 1200px;
   margin: 0 auto;
+  font-size: larger;
   z-index: 2;
 }
 
@@ -26,6 +27,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: larger;
   z-index: 1;
 }
 
@@ -43,6 +45,7 @@ p {
   justify-content: center;
   align-items: center;
   z-index: 0;
+  font-size: larger;
 }
 
 .card {
@@ -68,16 +71,23 @@ p {
   opacity: 0;
 }
 
+#visualization-scatter *,
 #visualization-scatter > figure > svg > text,
+#visualization-scatter > figure > svg > text,
+#visualization-scatter > figure > svg > g,
 #visualization-scatter > figure > svg > g > text,
 #visualization-scatter > figure > svg > g > text > tspan,
+#visualization-comparison *,
+#visualization-comparison > span,
 #visualization-comparison > figure > svg > text,
+#visualization-comparison > figure > svg > g,
 #visualization-comparison > figure > svg > g > text,
 #visualization-comparison > figure > svg > g > text > tspan,
+#visualization *,
 #visualization > svg > g > text,
 #visualization > svg > g > g > text,
 #visualization > svg > g > g > g > text {
-  font-size: 12px;
+  font-size: 1em;
   z-index: 0;
 }
 
