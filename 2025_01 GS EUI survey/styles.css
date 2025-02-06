@@ -1,13 +1,13 @@
-* {
+/* * {
   font-family: "PT Sans", sans-serif;
-  font-size: 20px;
-}
+  font-size: 16px;
+} */
 
-body {
+/* body {
   margin: 0;
   font-family: "PT Sans", sans-serif;
   line-height: 1.4;
-}
+} */
 
 .container,
 .container-scatter,
