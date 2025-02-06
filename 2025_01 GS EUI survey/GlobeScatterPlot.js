@@ -44,13 +44,21 @@ export class GlobeScatterPlot {
     ];
 
     this.matrixLabel = [
-      { x: 4, y: 5, type: "High risk", lineAnchor: "top", textAnchor: "start" },
+      {
+        x: 4,
+        y: 5,
+        type: "High risk",
+        lineAnchor: "top",
+        textAnchor: "start",
+        fontWeight: 700,
+      },
       {
         x: 5,
         y: 2,
         type: "Moderate risk",
         lineAnchor: "bottom",
         textAnchor: "end",
+        fontWeight: 700,
       },
       {
         x: 3,
@@ -58,6 +66,7 @@ export class GlobeScatterPlot {
         type: "Remote risk",
         lineAnchor: "bottom",
         textAnchor: "end",
+        fontWeight: 700,
       },
     ];
 
@@ -211,10 +220,11 @@ export class GlobeScatterPlot {
       .attr("x", (d) => this.xScale(d.x))
       .attr("y", (d) => this.yScale(d.y))
       .attr("text-anchor", (d) => d.textAnchor)
+      .attr("font-weight", (d) => d.fontWeight)
       .attr("dy", (d) => (d.lineAnchor === "top" ? "-0.5em" : "1em"))
       .text((d) => d.type)
-      .attr("fill", (d) => this.colorScale(d.type))
-      .style("font-size", "12px");
+      .attr("fill", (d) => this.colorScale(d.type));
+    // .style("font-size", "12px");
   }
 
   setupAxes() {
@@ -239,9 +249,9 @@ export class GlobeScatterPlot {
       .append("text")
       .attr("x", this.width / 2)
       .attr("y", 40)
-      .attr("fill", "#333")
+      .attr("fill", "#aaa")
       .attr("font-family", "PT Sans , sans-serif")
-      .attr("font-weight", 700)
+      // .attr("font-weight", 700)
       .text("Likelihood");
 
     // Add y-axis
@@ -264,9 +274,9 @@ export class GlobeScatterPlot {
       .attr("transform", "rotate(-90)")
       .attr("x", -this.width / 2)
       .attr("y", -40)
-      .attr("fill", "#333")
+      .attr("fill", "#aaa")
       .attr("font-family", "PT Sans , sans-serif")
-      .attr("font-weight", 700)
+      // .attr("font-weight", 700)
       .text("Impact");
   }
 
@@ -297,7 +307,7 @@ export class GlobeScatterPlot {
       .attr("y", this.width - 50)
       .attr("text-anchor", "middle")
       .attr("dy", "0.35em")
-      .style("font-size", "12px")
+      // .style("font-size", "12px")
       .style("fill", "#aaa")
       .text("Drag to rotate globe");
   }

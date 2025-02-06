@@ -30,6 +30,7 @@ export class ScatterBase {
     return Plot.plot({
       width: this.width,
       height: this.width,
+      marginBottom: 50,
       // title: "Variation in average survey response",
       // subtitle: this.type,
       x: {
