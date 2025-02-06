@@ -82,7 +82,15 @@ export class ScatterBase {
         ),
         // Text with white stroke for outline
         Plot.text(
-          this.data.filter((d) => d.type === type),
+          this.data.filter(
+            (d) =>
+              d.type === type &&
+              ![
+                "Inter/governmental organisation",
+                "Northern Europe",
+                "Central and Eastern Europe",
+              ].includes(d.name)
+          ),
           {
             x: isTransitioning ? "Likelihood_mean" : "Likelihood",
             y: isTransitioning ? "Impact_mean" : "Impact",
@@ -100,7 +108,15 @@ export class ScatterBase {
         ),
         // Actual text
         Plot.text(
-          this.data.filter((d) => d.type === type),
+          this.data.filter(
+            (d) =>
+              d.type === type &&
+              ![
+                "Inter/governmental organisation",
+                "Northern Europe",
+                "Central and Eastern Europe",
+              ].includes(d.name)
+          ),
           {
             x: isTransitioning ? "Likelihood_mean" : "Likelihood",
             y: isTransitioning ? "Impact_mean" : "Impact",
@@ -113,6 +129,31 @@ export class ScatterBase {
             lineWidth: 7,
             lineAnchor: "top",
             textAnchor: "start",
+          }
+        ),
+        // Actual text, right-aligned
+        Plot.text(
+          this.data.filter(
+            (d) =>
+              d.type === type &&
+              [
+                "Inter/governmental organisation",
+                "Northern Europe",
+                "Central and Eastern Europe",
+              ].includes(d.name)
+          ),
+          {
+            x: isTransitioning ? "Likelihood_mean" : "Likelihood",
+            y: isTransitioning ? "Impact_mean" : "Impact",
+            dx: -8,
+            dy: -5,
+            fill: "name",
+            text: "name",
+            // fontSize: 16,
+            fontWeight: 700,
+            lineWidth: 7,
+            lineAnchor: "top",
+            textAnchor: "end",
           }
         ),
       ],
