@@ -284,7 +284,7 @@ export class GlobeScatterPlot {
     this.globe = this.svg
       .append("circle")
       .attr("fill", "#fff")
-      .attr("stroke", "#ddd")
+      .attr("stroke", "#eee")
       .attr("stroke-width", ".5")
       .attr("cx", this.width / 2)
       .attr("cy", this.height / 2)
@@ -296,7 +296,7 @@ export class GlobeScatterPlot {
       .attr("d", this.path)
       .attr("class", "borders")
       .style("fill", "none")
-      .style("stroke", "#ddd")
+      .style("stroke", "#ccc")
       .style("stroke-width", ".5");
   }
 
