@@ -18,6 +18,12 @@
   pointer-events: none;
 }
 
+.scroll-content a,
+.scroll-content-scatter a,
+.scroll-content-comparison a {
+  pointer-events: auto;
+}
+
 .sticky-container {
   position: sticky;
   top: 0;
