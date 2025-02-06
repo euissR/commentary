@@ -1,3 +1,6 @@
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.8.5/+esm";
+import * as topojson from "https://cdn.jsdelivr.net/npm/topojson-client@3/+esm";
+
 export class GlobeScatterPlot {
   constructor(container) {
     this.container = container;

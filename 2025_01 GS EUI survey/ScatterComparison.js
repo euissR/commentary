@@ -27,7 +27,7 @@ export class ScatterComparison {
     return Plot.plot({
       width: this.width,
       height: this.width,
-      // title: "Comparison to US survey",
+      title: "Comparing results across the Atlantic",
       // subtitle:
       //   "Only questions from EU survey with equivalents in US survey. The EU is more worried than US in only in two cases (Libya and Sahel).",
       marginLeft: 0,
@@ -46,7 +46,7 @@ export class ScatterComparison {
           "Tier I/High risk",
         ],
       },
-      y: { label: null, grid: true },
+      y: { label: null, grid: false },
       color: {
         range: ["#309ebe", "#c6c6c6", "#df3144"],
         legend: true,
