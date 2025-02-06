@@ -1,9 +1,9 @@
-import { GlobeScatterPlot } from "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2025_01%20GS%20EUI%20survey/GlobeScatterPlot.js";
+import { GlobeScatterPlot } from "https://euissr.github.io/commentary/2025_01%20GS%20EUI%20survey/GlobeScatterPlot.js";
 import {
   ScatterRegion,
   ScatterEmployer,
-} from "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2025_01%20GS%20EUI%20survey/ScatterPlots.js";
-import { ScatterComparisonRender } from "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2025_01%20GS%20EUI%20survey/ScatterComparison.js";
+} from "https://euissr.github.io/commentary/2025_01%20GS%20EUI%20survey/ScatterPlots.js";
+import { ScatterComparisonRender } from "https://euissr.github.io/commentary/2025_01%20GS%20EUI%20survey/ScatterComparison.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll(".card");
