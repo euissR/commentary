@@ -1,0 +1,190 @@
+/* Base styles */
+text {
+  font-family: "PT Sans", sans-serif;
+}
+
+h3 {
+  position: relative; /* Added to establish positioning context for tooltip */
+  display: flex;
+}
+
+.footnote {
+  font-size: 0.8em;
+  color: #666;
+}
+
+/* table */
+
+th {
+  text-align: left;
+}
+
+/* Visualization elements */
+
+.dot {
+  transition: opacity 0.3s;
+  fill: #fff;
+  stroke: #000;
+}
+
+.dot:hover {
+  opacity: 0.2;
+}
+
+.arrow {
+  transition: opacity 0.3s;
+  fill: none;
+  pointer-events: none;
+}
+
+.hover-dot {
+  pointer-events: none;
+}
+
+.label {
+  font-size: 10px;
+  pointer-events: none;
+}
+
+/* Axis styling */
+.axis line,
+.axis path {
+  display: none;
+}
+
+/* Tooltip */
+.tooltip {
+  position: absolute; /* Changed from fixed to absolute */
+  text-align: left;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  font: 12px sans-serif;
+  color: black;
+  background-color: rgba(255, 255, 255, 0.3);
+  text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white,
+    1px 1px 0 white;
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* collapsible */
+.collapsible {
+  background-color: #f1f1f1;
+  padding: 15px;
+  cursor: pointer;
+  border: none;
+  text-align: left;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.tag {
+  border: solid #666;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(-45deg);
+  transition: transform 0.3s;
+}
+
+.rotated {
+  transform: rotate(45deg);
+}
+
+.content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background-color: #f1f1f1;
+  padding: 0 15px;
+}
+
+.content.show {
+  max-height: 500px;
+}
+
+.content-inner {
+  padding: 0px 15px 15px 15px; /* Left padding is larger to align with the text above */
+}
+
+.content-inner ul {
+  list-style-type: none; /* This explicitly removes the bullets */
+  padding: 0;
+  margin: 0;
+}
+
+.content-inner li {
+  position: relative;
+  /* padding-left: 20px; */
+  padding-left: 0;
+  margin: 8px 0;
+  list-style-type: none; /* Added this to ensure no bullets */
+}
+
+.content-inner li::before {
+  /* content: ">"; */
+  position: absolute;
+  left: 0;
+  color: #666;
+  font-weight: bold !important;
+}
+
+/* scrolly */
+
+/* Base styles */
+.container {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  z-index: 2;
+}
+
+.scroll-content {
+  width: 50%;
+  padding-right: 20px;
+  padding-left: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.scroll-content a {
+  pointer-events: auto;
+}
+
+.sticky-container {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.chart {
+  position: relative; /* Added to establish positioning context for tooltip */
+  width: 100%;
+  height: 100%;
+  font-size: medium;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+}
+
+.card {
+  margin-bottom: 80vh;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  opacity: 1;
+}
+
+.card.active {
+  opacity: 1;
+}
