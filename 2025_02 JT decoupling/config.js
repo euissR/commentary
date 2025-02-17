@@ -1,5 +1,5 @@
 export const config = {
-  margin: { top: 30, right: 50, bottom: 50, left: 50 },
+  margin: { top: 50, right: 50, bottom: 50, left: 50 },
   width: 600,
   height: 640,
   colors: {
@@ -7,7 +7,7 @@ export const config = {
     rectangle: "#fff",
     rectangleStroke: "#eee",
   },
-  dotRadius: 10,
+  dotRadius: 7,
   hoverDotRadius: 3,
   arrowStrokeWidth: 2,
   legendDotRadius: 5,

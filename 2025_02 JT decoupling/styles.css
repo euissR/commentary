@@ -123,7 +123,7 @@ th {
   /* padding-left: 20px; */
   padding-left: 0;
   margin: 8px 0;
-  list-style-type: none; /* Added this to ensure no bullets */
+  /* list-style-type: none; Added this to ensure no bullets */
 }
 
 .content-inner li::before {
