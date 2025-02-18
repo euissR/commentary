@@ -4,10 +4,10 @@ import { createVisualization } from "./scatter.js";
 import { handleScroll } from "./handleScroll.js";
 import { updateVisualization } from "./updateVisualization.js";
 
-// Store data globally
+// Store configurations globally with a map of chart IDs to their configs
+const globalConfigs = new Map();
 let globalData = null;
 let globalRectData = null;
-let globalConfig = null;
 
 // Data processing function
 function processData(data) {
@@ -27,80 +27,72 @@ export function getGlobalData() {
   return {
     data: globalData,
     rectData: globalRectData,
-    config: globalConfig,
+    config: getCurrentConfig(), // Get config for currently visible chart
   };
 }
 
-// listen for scroll events
-// window.addEventListener("scroll", handleScroll);
+// Get configuration for currently visible chart
+function getCurrentConfig() {
+  const visibleChart = Array.from(
+    document.querySelectorAll(".sticky-container .chart")
+  ).find((chart) => {
+    const rect = chart.getBoundingClientRect();
+    return (
+      rect.top < window.innerHeight &&
+      rect.bottom > 0 &&
+      rect.left < window.innerWidth &&
+      rect.right > 0
+    );
+  });
+
+  if (!visibleChart) return null;
+  return globalConfigs.get(visibleChart.id);
+}
 
 // Main initialization function
-export async function initializeVisualization(containerId, config, dataStep) {
+export async function initializeVisualization(containerId, config) {
   try {
-    // console.log("Starting initialization for container:", containerId);
+    // Store the configuration globally for this specific chart
+    globalConfigs.set(containerId, config);
 
     const container = document.getElementById(containerId);
-    const dataStep = container.dataset.step
+    const containerDataStep = container.dataset.step
       ? JSON.parse(container.dataset.step)
       : null;
 
-    const [rectData, rawData] = await Promise.all([
-      d3.json(dataUrls.quadrants),
-      d3.csv(dataUrls.industries),
-    ]);
+    // Fetch data if not already loaded
+    if (!globalData || !globalRectData) {
+      const [rectData, rawData] = await Promise.all([
+        d3.json(dataUrls.quadrants),
+        d3.csv(dataUrls.industries),
+      ]);
 
-    // console.log("Data fetched:", {
-    //   rectDataLength: rectData?.length,
-    //   rawDataLength: rawData?.length,
-    // });
+      globalData = processData(rawData);
+      globalRectData = rectData;
+    }
 
-    const data = processData(rawData);
-
-    // console.log("Data processed:", {
-    //   processedDataLength: data?.length,
-    //   sampleDataPoint: data?.[0],
-    // });
-
-    // Store data globally
-    globalData = data;
-    globalRectData = rectData;
-    globalConfig = { ...config }; // Make a copy to be safe
-
-    console.log("full data", data);
-
-    // console.log("Global data set:", {
-    //   globalDataLength: globalData?.length,
-    //   globalRectDataLength: globalRectData?.length,
-    //   globalConfig,
-    // });
-
+    // Create visualization with the full configuration
     createVisualization(
-      data,
-      rectData,
+      globalData,
+      globalRectData,
       containerId,
       config.dotX,
       config.dotY,
       config.linkX,
       config.linkY,
       {
-        showDots: config.showDots ?? true,
-        showLinks: config.showLinks ?? true,
-        includeLinks: config.includeLinks ?? false,
-        dataStep: dataStep,
+        showDots: config.showDots,
+        showLinks: config.showLinks,
+        includeLinks: config.includeLinks,
+        dataStep: containerDataStep,
+        legend: config.legend,
       }
     );
 
-    // window.addEventListener("scroll", handleScroll);
-    // window.scrollListenerAdded = true;
-    // Only add the scroll listener once
-    if (containerId === "chart1" || containerId === "chart2") {
-      // if (containerId === "chart2") {
-      // Assuming this is your scrolly chart
-      if (!window.scrollListenerAdded) {
-        window.addEventListener("scroll", handleScroll);
-        window.scrollListenerAdded = true;
-        // console.log("Scroll listener added");
-      }
+    // Add scroll listener only once
+    if (containerId === "chart1" && !window.scrollListenerAdded) {
+      window.addEventListener("scroll", handleScroll);
+      window.scrollListenerAdded = true;
     }
   } catch (error) {
     console.error("Error in initializeVisualization:", error);

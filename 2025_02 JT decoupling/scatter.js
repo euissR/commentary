@@ -14,7 +14,7 @@ export function createVisualization(
 ) {
   // console.log("createVisualization received dataStep:", dataStep);
 
-  console.log("current dataStep:", dataStep);
+  // console.log("current dataStep:", dataStep);
   // Parse numeric values
   const parsedData = data.map((d) => ({
     ...d,
@@ -48,7 +48,7 @@ export function createVisualization(
   const allXValues = [
     ...new Set([
       ...(showDots ? parsedData.map((d) => d[dotX]) : []),
-      ...(showLinks ? parsedData.map((d) => d[linkX]) : []),
+      ...(showLinks || includeLinks ? parsedData.map((d) => d[linkX]) : []),
       ...rectData.map((d) => parseFloat(d.x)),
     ]),
   ].filter((x) => !isNaN(x));
@@ -56,7 +56,7 @@ export function createVisualization(
   const allYValues = [
     ...new Set([
       ...(showDots ? parsedData.map((d) => d[dotY]) : []),
-      ...(showLinks ? parsedData.map((d) => d[linkY]) : []),
+      ...(showLinks || includeLinks ? parsedData.map((d) => d[linkY]) : []),
       ...rectData.map((d) => parseFloat(d.y)),
     ]),
   ].filter((y) => !isNaN(y));
@@ -95,7 +95,8 @@ export function createVisualization(
       dotX,
       dotY,
       linkX,
-      linkY
+      linkY,
+      { dataStep }
     );
   }
 
@@ -115,6 +116,7 @@ export function createVisualization(
       linkY,
       chartId,
       {
+        showLinks,
         includeLinks,
         dataStep,
         // dataStep: String(dataStep), // Ensure dataStep is a string
@@ -124,7 +126,7 @@ export function createVisualization(
 
   // Add legend
   if (legend) {
-    console.log("creating legend");
+    // console.log("creating legend");
     createLegend(svg, colorScale, width);
   }
 
@@ -175,7 +177,7 @@ function drawDots(
   linkX,
   linkY,
   chartId,
-  { includeLinks = false, dataStep } = {}
+  { showLinks, includeLinks, dataStep } = {}
 ) {
   // console.log("Drawing dots with dataStep:", dataStep);
 
@@ -265,27 +267,33 @@ function drawDots(
       );
 
       // Remove existing hover effects before drawing new ones
-      if (!includeLinks) {
+      if (showLinks || !includeLinks) {
         svg.selectAll(".arrow").remove();
         svg.selectAll(".hover-dot").remove();
       }
 
-      drawHoverEffects(
-        svg,
-        relatedDots,
-        xScale,
-        yScale,
-        colorScale,
-        dotX,
-        dotY,
-        linkX,
-        linkY
-      );
+      // console.log("should we hover? (showLinks)", showLinks);
+
+      if (showLinks) {
+        drawHoverEffects(
+          svg,
+          relatedDots,
+          xScale,
+          yScale,
+          colorScale,
+          dotX,
+          dotY,
+          linkX,
+          linkY,
+          showLinks,
+          dataStep
+        );
+      }
     })
 
     .on("mouseout", function () {
       tooltip.transition().duration(500).style("opacity", 0);
-      if (!includeLinks) {
+      if (showLinks) {
         svg.selectAll(".arrow").remove();
         svg.selectAll(".hover-dot").remove();
       }
@@ -331,8 +339,10 @@ function drawLinks(
   dotX,
   dotY,
   linkX,
-  linkY
+  linkY,
+  { dataStep } = {}
 ) {
+  // console.log("dataStep", dataStep);
   const links = svg
     .selectAll(".link")
     .data(relatedDots)
@@ -350,7 +360,13 @@ function drawLinks(
     .attr("cx", (d) => xScale(d[linkX]))
     .attr("cy", (d) => yScale(d[linkY]))
     .attr("r", config.hoverDotRadius)
-    .style("fill", (d) => colorScale(d.group));
+    .style("fill", (d) => {
+      if (!dataStep) return "#ffffff00"; // Default color if no steps
+      return !dataStep || // Check if dataStep is null/undefined
+        dataStep.some((step) => String(step) === String(d.name_short))
+        ? colorScale(d.group)
+        : "#ffffff00";
+    });
 
   // svg
   //   .selectAll(".arrow")
@@ -363,7 +379,13 @@ function drawLinks(
     .attr("y1", (d) => yScale(d[dotY]))
     .attr("x2", (d) => xScale(d[linkX]))
     .attr("y2", (d) => yScale(d[linkY]))
-    .attr("stroke", (d) => colorScale(d.group))
+    .style("stroke", (d) => {
+      if (!dataStep) return "#ffffff00"; // Default color if no steps
+      return !dataStep || // Check if dataStep is null/undefined
+        dataStep.some((step) => String(step) === String(d.name_short))
+        ? colorScale(d.group)
+        : "#ffffff00";
+    })
     .attr("stroke-width", config.arrowStrokeWidth);
 }
 
@@ -376,8 +398,13 @@ function drawHoverEffects(
   dotX,
   dotY,
   linkX,
-  linkY
+  linkY,
+  showLinks,
+  dataStep
 ) {
+  // console.log("we're hovering!!!");
+  // console.log("dataStep", dataStep);
+
   svg
     .selectAll(".hover-dot")
     .data(relatedDots)
@@ -387,7 +414,14 @@ function drawHoverEffects(
     .attr("cx", (d) => xScale(d[linkX]))
     .attr("cy", (d) => yScale(d[linkY]))
     .attr("r", config.hoverDotRadius)
-    .style("fill", (d) => colorScale(d.group));
+    .style("fill", (d) => {
+      if (!dataStep) return "#ffffff00"; // Default color if no steps
+      return !dataStep || // Check if dataStep is null/undefined
+        dataStep.some((step) => String(step) === String(d.name_short))
+        ? // return dataStep === null || String(dataStep) === d.name_short
+          colorScale(d.group)
+        : "#ffffff00";
+    });
 
   svg
     .selectAll(".arrow")
@@ -399,7 +433,14 @@ function drawHoverEffects(
     .attr("y1", (d) => yScale(d[dotY]))
     .attr("x2", (d) => xScale(d[linkX]))
     .attr("y2", (d) => yScale(d[linkY]))
-    .attr("stroke", (d) => colorScale(d.group))
+    .style("stroke", (d) => {
+      if (!dataStep) return "#ffffff00"; // Default color if no steps
+      return !dataStep || // Check if dataStep is null/undefined
+        dataStep.some((step) => String(step) === String(d.name_short))
+        ? // return dataStep === null || String(dataStep) === d.name_short
+          colorScale(d.group)
+        : "#ffffff00";
+    })
     .attr("stroke-width", config.arrowStrokeWidth);
 }
 

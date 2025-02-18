@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Interactive D3 Scatterplot</title>
+    <!-- <title>Interactive D3 Scatterplot</title> -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -563,6 +563,7 @@
       achieving the 2030 goal. In addition, participants stress that introducing
       promote policies first is the best way forward.
     </p>
+    <div class=".chart .halfchart" id="chart3" data-chart-id="3"></div>
     <p>
       Achieving security of supply requires vertically integrating industries,
       all the way from the current point of direct dependence on China to the
@@ -1035,7 +1036,7 @@
 
     <div class="container">
       <div class="scroll-content">
-        <div class="card" data-step="1, 2, 3, 4, 5, 6, 7, 8, 9, 10"></div>
+        <div class="card" data-step=""></div>
         <div class="card" data-step="3, 4, 8">
           <p>
             Industry, think tankers, and policymakers found common ground on
@@ -1087,17 +1088,18 @@
     <script type="module">
       import { initializeVisualization } from "./main.js";
 
-      // Initialize first visualization
+      // executive summary
       initializeVisualization("chart1", {
         dotX: "x2",
         dotY: "y2",
         linkX: "x1",
         linkY: "y1",
-        showDots: false,
-        showLinks: false,
-        includeLinks: false,
-        legend: false,
+        showDots: true, // show the main dots (dotX, dotY)
+        showLinks: false, // hover shows links (linkX, linkY)
+        includeLinks: false, // links are visible without hover
+        legend: false, // include legend
       });
+      // annex
       initializeVisualization("chart2", {
         dotX: "x2",
         dotY: "y2",

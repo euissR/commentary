@@ -10,7 +10,8 @@ export function updateVisualization(
   dotY,
   linkX,
   linkY,
-  legend
+  legend,
+  { showDots, showLinks, includeLinks }
 ) {
   if (!dataStep) return;
 
@@ -32,9 +33,9 @@ export function updateVisualization(
 
   // Create the new visualization with the filtered data
   createVisualization(data, rectData, chartId, dotX, dotY, linkX, linkY, {
-    showDots: true,
-    showLinks: true,
-    includeLinks: false,
+    showDots,
+    showLinks,
+    includeLinks,
     dataStep: steps,
     legend,
   });

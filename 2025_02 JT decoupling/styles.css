@@ -178,6 +178,16 @@ th {
   z-index: 0;
 }
 
+.halfchart {
+  right: 0;
+  width: 50%;
+  font-size: medium;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+}
+
 .card {
   margin-bottom: 80vh;
   background-color: rgba(255, 255, 255, 0.8);
