@@ -1,12 +1,12 @@
-// import { GlobeScatterPlot } from "https://commentary-eight.vercel.app/2025_01%20GS%20EUI%20survey/GlobeScatterPlot.js";
-import { GlobeScatterPlot } from "./GlobeScatterPlot.js";
+import { GlobeScatterPlot } from "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2026_01%20GS%20EUI/GlobeScatterPlot.js";
+// import { GlobeScatterPlot } from "./GlobeScatterPlot.js";
 import {
   ScatterRegion,
   ScatterEmployer,
-  // } from "https://commentary-eight.vercel.app/2025_01%20GS%20EUI%20survey/ScatterPlots.js";
-} from "./ScatterPlots.js";
-// import { ScatterComparisonRender } from "https://commentary-eight.vercel.app/2025_01%20GS%20EUI%20survey/ScatterComparison.js";
-import { ScatterComparisonRender } from "./ScatterComparison.js";
+} from "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2026_01%20GS%20EUI/ScatterPlots.js";
+// } from "./ScatterPlots.js";
+import { ScatterComparisonRender } from "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2026_01%20GS%20EUI/ScatterComparison.js";
+// import { ScatterComparisonRender } from "./ScatterComparison.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll(".card");
