@@ -1,12 +1,20 @@
-import { GlobeScatterPlot } from "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2026_01%20GS%20EUI/GlobeScatterPlot.js";
-// import { GlobeScatterPlot } from "./GlobeScatterPlot.js";
+// use CDN instead of GH
+import { GlobeScatterPlot } from "https://cdn.jsdelivr.net/gh/euissR/commentary@main/2026_01%20GS%20EUI/GlobeScatterPlot.js";
 import {
   ScatterRegion,
   ScatterEmployer,
-} from "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2026_01%20GS%20EUI/ScatterPlots.js";
-// } from "./ScatterPlots.js";
-import { ScatterComparisonRender } from "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2026_01%20GS%20EUI/ScatterComparison.js";
-// import { ScatterComparisonRender } from "./ScatterComparison.js";
+} from "https://cdn.jsdelivr.net/gh/euissR/commentary@main/2026_01%20GS%20EUI/ScatterPlots.js";
+import { ScatterComparisonRender } from "https://cdn.jsdelivr.net/gh/euissR/commentary@main/2026_01%20GS%20EUI/ScatterComparison.js";
+
+// import { GlobeScatterPlot } from "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2026_01%20GS%20EUI/GlobeScatterPlot.js";
+// // import { GlobeScatterPlot } from "./GlobeScatterPlot.js";
+// import {
+//   ScatterRegion,
+//   ScatterEmployer,
+// } from "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2026_01%20GS%20EUI/ScatterPlots.js";
+// // } from "./ScatterPlots.js";
+// import { ScatterComparisonRender } from "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2026_01%20GS%20EUI/ScatterComparison.js";
+// // import { ScatterComparisonRender } from "./ScatterComparison.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll(".card");
