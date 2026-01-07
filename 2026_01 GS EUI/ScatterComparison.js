@@ -8,7 +8,7 @@ export class ScatterComparison {
   async loadData() {
     try {
       const response = await fetch(
-        "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2025_01%20GS%20EUI%20survey/comparison.csv"
+        "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2026_01%20GS%20EUI/comparison.csv"
       );
       const csvText = await response.text();
       this.data = d3.csvParse(csvText, (d) => ({
