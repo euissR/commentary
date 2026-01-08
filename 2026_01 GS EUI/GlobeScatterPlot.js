@@ -198,6 +198,9 @@ export class GlobeScatterPlot {
 
     // Add matrix rectangles and labels (initially hidden)
     this.setupMatrix();
+
+    // Add comparison lines group (initially hidden)
+    this.setupComparisonLines();
   }
 
   setupMatrix() {
@@ -237,6 +240,42 @@ export class GlobeScatterPlot {
       .text((d) => d.type)
       .attr("fill", (d) => this.colorScale(d.type));
     // .style("font-size", "12px");
+  }
+
+  setupComparisonLines() {
+    // Create a group for comparison lines (2025 to 2026)
+    this.comparisonLinesGroup = this.svg
+      .append("g")
+      .attr("class", "comparison-lines")
+      .style("opacity", 0);
+
+    // Add legend for comparison lines
+    this.comparisonLegend = this.axesGroup
+      .append("g")
+      .attr("class", "comparison-legend")
+      .attr("transform", `translate(${100}, 38)`)
+      .style("display", "none");
+
+    // Legend line sample
+    this.comparisonLegend
+      .append("line")
+      .attr("x1", 0)
+      .attr("y1", 0)
+      .attr("x2", 30)
+      .attr("y2", 0)
+      .attr("stroke", "#000")
+      .attr("stroke-width", 1)
+      .attr("stroke-dasharray", "2,2");
+
+    // Legend text
+    this.comparisonLegend
+      .append("text")
+      .attr("x", 35)
+      .attr("y", 0)
+      .attr("dy", "0.35em")
+      .attr("fill", "#000")
+      .style("font-size", "12px")
+      .text("Change from 2025 to 2026");
   }
 
   setupAxes() {
@@ -496,6 +535,50 @@ export class GlobeScatterPlot {
           return 1;
         });
 
+      // Update comparison lines for highlighted questions
+      if (step && step >= 3 && step <= 6) {
+        // Filter data for highlighted questions that have 2025 data
+        const highlightedData = this.data.features.filter(
+          (d) =>
+            this.stepHighlights[step].includes(d.properties.q) &&
+            d.properties.Likelihood_2025 != null &&
+            d.properties.Impact_2025 != null
+        );
+
+        // Remove existing comparison lines
+        this.comparisonLinesGroup.selectAll("*").remove();
+
+        // Add new comparison lines
+        this.comparisonLinesGroup
+          .selectAll(".comparison-line")
+          .data(highlightedData)
+          .enter()
+          .append("line")
+          .attr("class", "comparison-line")
+          .attr("x1", (d) => this.xScale(d.properties.Likelihood_2025))
+          .attr("y1", (d) => this.yScale(d.properties.Impact_2025))
+          .attr("x2", (d) => this.xScale(d.properties.Likelihood))
+          .attr("y2", (d) => this.yScale(d.properties.Impact))
+          .attr("stroke", "#000")
+          .attr("stroke-width", 1)
+          .attr("stroke-dasharray", "2,2");
+
+        // Fade in comparison lines
+        this.comparisonLinesGroup.style("opacity", 1);
+
+        // Show legend
+        this.comparisonLegend.style("display", "block");
+      } else {
+        // Hide comparison lines if not in highlight steps
+        this.comparisonLinesGroup
+          .transition()
+          .duration(500)
+          .style("opacity", 0);
+
+        // Hide legend
+        this.comparisonLegend.style("display", "none");
+      }
+
       this.globe.transition().duration(1000).style("opacity", 0);
       this.borders.transition().duration(1000).style("opacity", 0);
       this.axesGroup.transition().duration(1000).style("opacity", 1);
@@ -550,6 +633,12 @@ export class GlobeScatterPlot {
 
       this.matrixRects.style("display", "none");
       this.matrixLabels.style("display", "none");
+
+      // Hide comparison lines when returning to globe view
+      this.comparisonLinesGroup.transition().duration(500).style("opacity", 0);
+
+      // Hide legend
+      this.comparisonLegend.style("display", "none");
 
       // Only call startRotation if we're transitioning from scatter view
       if (wasScatterView) {
