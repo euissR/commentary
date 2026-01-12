@@ -54,6 +54,7 @@ p {
 .card {
   margin-bottom: 80vh;
   padding: 20px;
+  /* background-color: aliceblue; */
   opacity: .9;
 }
 
@@ -61,15 +62,7 @@ p {
   opacity: 1;
 }
 
-.card[data-step="6"],
-.card[data-step="9"],
-.card[data-step="12"] {
-  margin-bottom: 20vh;
-}
-
-.card[data-step="0"],
-.card[data-step="7"],
-.card[data-step="10"] {
+.card[data-step="0"] {
   opacity: 0;
 }
 
@@ -125,12 +118,6 @@ p {
 
   .card {
     margin-bottom: 80vh; /* Reduced spacing on mobile */
-  }
-
-  .card[data-step="6"],
-  .card[data-step="9"],
-  .card[data-step="12"] {
-    margin-bottom: 10vh;
   }
 
   figure {

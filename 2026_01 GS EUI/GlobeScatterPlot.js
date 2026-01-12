@@ -76,19 +76,48 @@ export class GlobeScatterPlot {
     // Add highlight configurations for each step
     this.stepHighlights = {
       3: [
-        "Disruptive hybrid attack on EU critical infrastructure (e.g. subsea sabotage; electrical grids shutdown)",
+        "Cross-strait military conflict between China and Taiwan",
+        "Violent clash between radicalised political groups in the US",
       ],
       4: [
+        "Deeper regional escalation of the Israel-Iran conflict",
+        "Ceasefire breakdown between Israel and Hamas",
+        "State collapse in Lebanon",
+        "Georgian government submits to Russian agenda fully",
+        "Large scale irregular migration from the Middle East and North Africa (MENA) and Sub-Saharan Africa to the EU",
+      ],
+      5: [
+        "Disruptive hybrid attack on EU critical infrastructure (e.g. subsea sabotage; electrical grids shutdown)",
+      ],
+      6: [
+        "Disruptive hybrid attack on EU critical infrastructure (e.g. subsea sabotage; electrical grids shutdown)",
+      ],
+      7: [
         "A ceasefire favourable to Russia in its war against Ukraine",
         "New Russian military action in non-NATO neighbouring states",
         "Direct NATO-Russia military conflict",
         "Georgian government submits to Russian agenda fully",
       ],
-      5: [
+      8: ["A ceasefire favourable to Russia in its war against Ukraine"],
+      9: [
+        "New Russian military action in non-NATO neighbouring states",
+        "Georgian government submits to Russian agenda fully",
+      ],
+      10: [
+        "A ceasefire favourable to Russia in its war against Ukraine",
+        "New Russian military action in non-NATO neighbouring states",
+        "Direct NATO-Russia military conflict",
+        "Georgian government submits to Russian agenda fully",
+      ],
+      11: [
         "US withdrawal from security guarantees to European allies",
         "Use of nuclear weapons by Russia",
       ],
-      6: [
+      12: [
+        "US withdrawal from security guarantees to European allies",
+        "Use of nuclear weapons by Russia",
+      ],
+      13: [
         "Cross-strait military conflict between China and Taiwan",
         "US China direct military confrontation",
         "Deeper regional escalation of the Israel-Iran conflict",
@@ -111,6 +140,7 @@ export class GlobeScatterPlot {
   async init() {
     try {
       const response = await fetch(
+        // "../flourish/data_mean_wide_sf.geojson"
         "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2026_01%20GS%20EUI/data_mean_wide_sf.geojson"
       );
       this.data = await response.json();
@@ -253,16 +283,16 @@ export class GlobeScatterPlot {
     this.comparisonLegend = this.axesGroup
       .append("g")
       .attr("class", "comparison-legend")
-      .attr("transform", `translate(${100}, 38)`)
+      .attr("transform", `translate(${this.xScale(1.5)}, ${this.yScale(5)})`)
       .style("display", "none");
 
     // Legend line sample
     this.comparisonLegend
       .append("line")
       .attr("x1", 0)
-      .attr("y1", 0)
+      .attr("y1", "-.75em")
       .attr("x2", 30)
-      .attr("y2", 0)
+      .attr("y2", "-.75em")
       .attr("stroke", "#000")
       .attr("stroke-width", 1)
       .attr("stroke-dasharray", "2,2");
@@ -272,7 +302,8 @@ export class GlobeScatterPlot {
       .append("text")
       .attr("x", 35)
       .attr("y", 0)
-      .attr("dy", "0.35em")
+      .attr("dy", "-0.75em")
+      .attr("text-anchor", "start")
       .attr("fill", "#000")
       .style("font-size", "12px")
       .text("Change from 2025 to 2026");
@@ -511,10 +542,10 @@ export class GlobeScatterPlot {
           const radius =
             step &&
             step >= 3 &&
-            step <= 6 &&
+            step <= 20 &&
             this.stepHighlights[step].includes(d.properties.q)
-              ? 7
-              : 5;
+              ? 7 // Highlighted dots
+              : 5; // Non-highlighted dots
           const scaledPoint = path.pointRadius(radius)({
             type: "Point",
             coordinates: [0, 0],
@@ -529,14 +560,14 @@ export class GlobeScatterPlot {
           )`
         )
         .style("opacity", (d) => {
-          if (step && step >= 3 && step <= 6) {
+          if (step && step >= 3 && step <= 20) {
             return this.stepHighlights[step].includes(d.properties.q) ? 1 : 0.2;
           }
           return 1;
         });
 
       // Update comparison lines for highlighted questions
-      if (step && step >= 3 && step <= 6) {
+      if (step && step >= 3 && step <= 4) {
         // Filter data for highlighted questions that have 2025 data
         const highlightedData = this.data.features.filter(
           (d) =>
@@ -561,7 +592,25 @@ export class GlobeScatterPlot {
           .attr("y2", (d) => this.yScale(d.properties.Impact))
           .attr("stroke", "#000")
           .attr("stroke-width", 1)
-          .attr("stroke-dasharray", "2,2");
+          .attr("stroke-dasharray", "2,2")
+          .attr("marker-end", "url(#arrow)");
+
+        // Add small arrow marker definition if it doesn't exist
+        if (this.svg.select("defs").empty()) {
+          const defs = this.svg.append("defs");
+          defs
+            .append("marker")
+            .attr("id", "arrow")
+            .attr("viewBox", "0 0 10 10")
+            .attr("refX", 9)
+            .attr("refY", 5)
+            .attr("markerWidth", 4)
+            .attr("markerHeight", 4)
+            .attr("orient", "auto")
+            .append("path")
+            .attr("d", "M 0 0 L 10 5 L 0 10 z")
+            .attr("fill", "#000");
+        }
 
         // Fade in comparison lines
         this.comparisonLinesGroup.style("opacity", 1);

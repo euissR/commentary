@@ -1,29 +1,18 @@
 // use CDN instead of GH
 import { GlobeScatterPlot } from "https://cdn.jsdelivr.net/gh/euissR/commentary@main/2026_01%20GS%20EUI/GlobeScatterPlot.js";
-import {
-  ScatterRegion,
-  ScatterEmployer,
-} from "https://cdn.jsdelivr.net/gh/euissR/commentary@main/2026_01%20GS%20EUI/ScatterPlots.js";
 import { ScatterComparisonRender } from "https://cdn.jsdelivr.net/gh/euissR/commentary@main/2026_01%20GS%20EUI/ScatterComparison.js";
 
 // local for dev
 // import { GlobeScatterPlot } from "./GlobeScatterPlot.js";
-// import {
-//   ScatterRegion,
-//   ScatterEmployer,
-// } from "./ScatterPlots.js";
 // import { ScatterComparisonRender } from "./ScatterComparison.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll(".card");
   const visualizationElement = document.getElementById("visualization");
-  const scatterElement = document.getElementById("visualization-scatter");
   const comparisonElement = document.getElementById("visualization-comparison");
 
   // Initialize visualizations
   const globeScatter = new GlobeScatterPlot(visualizationElement);
-  const scatterRegion = new ScatterRegion(scatterElement);
-  const scatterEmployer = new ScatterEmployer(scatterElement);
   const scatterComparisonRender = new ScatterComparisonRender(
     comparisonElement
   );
@@ -40,8 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const step = parseInt(entry.target.dataset.step);
 
           // Handle visualization transitions
-          // Handle visualization transitions
-          if (step < 7) {
+          if (step < 20) {
             currentVisualization = globeScatter;
             if (step >= 2) {
               // Transition to scatter view
@@ -50,24 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
               // If scrolling back up from scatter to globe (steps 0-1), transition back
               globeScatter.toggleView(false, step);
             }
-          } else if (step === 8) {
-            // Transition to Region scatter
-            scatterElement.innerHTML = "";
-            currentVisualization = scatterEmployer;
-            scatterEmployer.render();
-          } else if (step === 9) {
-            // Transition to Employer scatter with animation
-            const transitionDuration = 0;
-
-            // First render Region with points at mean positions
-            scatterEmployer.render(true).then(() => {
-              // After a brief pause, switch to Employer plot
-              setTimeout(() => {
-                currentVisualization = scatterRegion;
-                scatterRegion.render();
-              }, transitionDuration);
-            });
-          } else if (step >= 10) {
+          } else if (step >= 20) {
             currentVisualization = scatterComparisonRender;
             scatterComparisonRender.render();
           }
