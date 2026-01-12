@@ -295,7 +295,8 @@ export class GlobeScatterPlot {
       .attr("y2", "-.75em")
       .attr("stroke", "#000")
       .attr("stroke-width", 1)
-      .attr("stroke-dasharray", "2,2");
+      .attr("stroke-dasharray", "2,2")
+      .attr("marker-end", "url(#arrow)");
 
     // Legend text
     this.comparisonLegend
