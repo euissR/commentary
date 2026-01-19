@@ -54,13 +54,13 @@ p {
 .card {
   margin-bottom: 80vh;
   padding: 20px;
-  /* background-color: aliceblue; */
+  background-color: transparent;
   opacity: 0.9;
 }
 
 .card.active {
   opacity: 1;
-  background-color: none;
+  background-color: transparent;
 }
 
 .card[data-step="0"] {
