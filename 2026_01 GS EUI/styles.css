@@ -60,6 +60,7 @@ p {
 
 .card.active {
   opacity: 1;
+  background-color: none;
 }
 
 .card[data-step="0"] {
@@ -119,6 +120,7 @@ p {
 
   .card {
     margin-bottom: 80vh; /* Reduced spacing on mobile */
+    background-color: rgba(255, 255, 255, 0.9);
   }
 
   figure {
@@ -136,6 +138,7 @@ p {
 
   .card {
     margin-bottom: 30vh;
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 15px;
   }
 }
