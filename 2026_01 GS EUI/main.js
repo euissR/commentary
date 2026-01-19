@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize visualizations
   const globeScatter = new GlobeScatterPlot(visualizationElement);
   const scatterComparisonRender = new ScatterComparisonRender(
-    comparisonElement
+    comparisonElement,
   );
 
   let currentVisualization = globeScatter;
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       threshold: 0.5, // Trigger when 50% of the card is visible
-    }
+    },
   );
 
   cards.forEach((card) => observer.observe(card));

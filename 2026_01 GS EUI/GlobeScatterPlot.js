@@ -141,7 +141,7 @@ export class GlobeScatterPlot {
     try {
       const response = await fetch(
         // "../flourish/data_mean_wide_sf.geojson"
-        "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2026_01%20GS%20EUI/data_mean_wide_sf.geojson"
+        "https://raw.githubusercontent.com/euissR/commentary/refs/heads/main/2026_01%20GS%20EUI/data_mean_wide_sf.geojson",
       );
       this.data = await response.json();
       console.log(this.data);
@@ -150,7 +150,7 @@ export class GlobeScatterPlot {
 
       // Fetch world coastlines
       const coastResponse = await fetch(
-        "https://unpkg.com/world-atlas@2/land-110m.json"
+        "https://unpkg.com/world-atlas@2/land-110m.json",
       );
       const worldData = await coastResponse.json();
       this.coast = topojson.feature(worldData, worldData.objects.land);
@@ -322,11 +322,12 @@ export class GlobeScatterPlot {
         d3
           .axisBottom(this.xScale)
           .tickValues([1, 2, 3, 4, 5])
-          .tickFormat(d3.format("d"))
+          .tickFormat(d3.format("d")),
       )
       .call((g) => {
         g.selectAll(".tick line").attr("stroke", "#aaa");
         g.selectAll(".tick text").attr("fill", "#aaa");
+        g.selectAll(".tick text").style("font-size", "12px");
         g.select(".domain").attr("stroke", "#aaa");
       })
       .append("text")
@@ -346,11 +347,12 @@ export class GlobeScatterPlot {
         d3
           .axisLeft(this.yScale)
           .tickValues([1, 2, 3, 4, 5])
-          .tickFormat(d3.format("d"))
+          .tickFormat(d3.format("d")),
       )
       .call((g) => {
         g.selectAll(".tick line").attr("stroke", "#aaa");
         g.selectAll(".tick text").attr("fill", "#aaa");
+        g.selectAll(".tick text").style("font-size", "12px");
         g.select(".domain").attr("stroke", "#aaa");
       })
       .append("text")
@@ -456,7 +458,7 @@ export class GlobeScatterPlot {
     this.tooltip
       .style("opacity", 1)
       .html(
-        `<b>${d.properties.q_short}</b> <br> ${wrapText(d.properties.q, 40)}`
+        `<b>${d.properties.q_short}</b> <br> ${wrapText(d.properties.q, 40)}`,
       )
       .style("left", event.pageX + 8 + "px")
       .style("top", event.pageY - 18 + "px");
@@ -495,7 +497,7 @@ export class GlobeScatterPlot {
             this.path = d3.geoPath().projection(this.projection);
             this.svg.selectAll("path:not(.dot)").attr("d", this.path);
             this.dots.attr("d", this.path);
-          })
+          }),
       )
       .on("mouseout", () => {
         if (!this.isScatterView) {
@@ -558,7 +560,7 @@ export class GlobeScatterPlot {
           (d) => `translate(
             ${this.xScale(d.properties.Likelihood)},
             ${this.yScale(d.properties.Impact)}
-          )`
+          )`,
         )
         .style("opacity", (d) => {
           if (step && step >= 3 && step <= 20) {
@@ -574,7 +576,7 @@ export class GlobeScatterPlot {
           (d) =>
             this.stepHighlights[step].includes(d.properties.q) &&
             d.properties.Likelihood_2025 != null &&
-            d.properties.Impact_2025 != null
+            d.properties.Impact_2025 != null,
         );
 
         // Remove existing comparison lines
@@ -651,7 +653,7 @@ export class GlobeScatterPlot {
 
           // Extract current x, y from transform
           const match = currentTransform.match(
-            /translate\(\s*([^,]+),\s*([^)]+)\)/
+            /translate\(\s*([^,]+),\s*([^)]+)\)/,
           );
           if (!match) return () => null;
 
