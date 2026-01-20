@@ -54,13 +54,13 @@ p {
 .card {
   margin-bottom: 80vh;
   padding: 20px;
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.9) !important;
   opacity: 0.9;
 }
 
 .card.active {
   opacity: 1;
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.9) !important;
 }
 
 .card[data-step="0"] {
@@ -120,7 +120,7 @@ p {
 
   .card {
     margin-bottom: 80vh; /* Reduced spacing on mobile */
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.9) !important;
   }
 
   figure {
@@ -138,7 +138,8 @@ p {
 
   .card {
     margin-bottom: 30vh;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.9) !important;
     padding: 15px;
   }
 }
+
