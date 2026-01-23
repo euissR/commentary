@@ -298,7 +298,7 @@ export class GlobeScatterPlot {
     this.comparisonLegend = this.axesGroup
       .append("g")
       .attr("class", "comparison-legend")
-      .attr("transform", `translate(${this.xScale(1.5)}, ${this.yScale(5)})`)
+      .attr("transform", `translate(${this.xScale(1.1)}, ${this.yScale(5)})`)
       .style("display", "none");
 
     // Legend line sample
@@ -306,7 +306,7 @@ export class GlobeScatterPlot {
       .append("line")
       .attr("x1", 0)
       .attr("y1", "-.75em")
-      .attr("x2", 30)
+      .attr("x2", 15)
       .attr("y2", "-.75em")
       .attr("stroke", "#000")
       .attr("stroke-width", 1)
@@ -316,7 +316,7 @@ export class GlobeScatterPlot {
     // Legend text
     this.comparisonLegend
       .append("text")
-      .attr("x", 35)
+      .attr("x", 20)
       .attr("y", 0)
       .attr("dy", "-0.75em")
       .attr("text-anchor", "start")
@@ -327,13 +327,13 @@ export class GlobeScatterPlot {
 
         text
           .append("tspan")
-          .attr("x", 35)
+          .attr("x", 20)
           .attr("dy", "-0.75em")
           .text("Change from");
 
         text
           .append("tspan")
-          .attr("x", 35)
+          .attr("x", 20)
           .attr("dy", "1.2em")
           .text("2025 to 2026");
       });
