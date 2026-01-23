@@ -35,15 +35,15 @@ export class GlobeScatterPlot {
 
     // labels for scatter plot
     this.matrix = [
-      { x1: 3, x2: 4, y1: 4, y2: 5, type: "High risk" },
-      { x1: 4, x2: 5, y1: 4, y2: 5, type: "High risk" },
-      { x1: 4, x2: 5, y1: 3, y2: 4, type: "High risk" },
-      { x1: 2, x2: 3, y1: 4, y2: 5, type: "Moderate risk" },
-      { x1: 3, x2: 4, y1: 3, y2: 4, type: "Moderate risk" },
-      { x1: 4, x2: 5, y1: 2, y2: 3, type: "Moderate risk" },
-      { x1: 2, x2: 3, y1: 3, y2: 4, type: "Remote risk" },
-      { x1: 2, x2: 3, y1: 2, y2: 3, type: "Remote risk" },
-      { x1: 3, x2: 4, y1: 2, y2: 3, type: "Remote risk" },
+      { x1: 3, x2: 4, y1: 4, y2: 5, type: "High\nrisk" },
+      { x1: 4, x2: 5, y1: 4, y2: 5, type: "High\nrisk" },
+      { x1: 4, x2: 5, y1: 3, y2: 4, type: "High\nrisk" },
+      { x1: 2, x2: 3, y1: 4, y2: 5, type: "Moderate\nrisk" },
+      { x1: 3, x2: 4, y1: 3, y2: 4, type: "Moderate\nrisk" },
+      { x1: 4, x2: 5, y1: 2, y2: 3, type: "Moderate\nrisk" },
+      { x1: 2, x2: 3, y1: 3, y2: 4, type: "Remote\nrisk" },
+      { x1: 2, x2: 3, y1: 2, y2: 3, type: "Remote\nrisk" },
+      { x1: 3, x2: 4, y1: 2, y2: 3, type: "Remote\nrisk" },
     ];
 
     this.matrixLabel = [
@@ -189,7 +189,7 @@ export class GlobeScatterPlot {
 
     this.colorScale = d3
       .scaleOrdinal()
-      .domain(["Remote risk", "Moderate risk", "High risk"])
+      .domain(["Remote\nrisk", "Moderate\nrisk", "High\nrisk"])
       .range(["#309ebe", "#aaa", "#df3144"]);
   }
 
