@@ -1,6 +1,6 @@
 // use CDN instead of GH
-import { GlobeScatterPlot } from "https://cdn.jsdelivr.net/gh/euissR/commentary@main/2026_01%20GS%20EUI/GlobeScatterPlot.js";
-import { ScatterComparisonRender } from "https://cdn.jsdelivr.net/gh/euissR/commentary@main/2026_01%20GS%20EUI/ScatterComparison.js";
+import { GlobeScatterPlot } from "https://cdn.jsdelivr.net/gh/euissR/commentary@ed25d70/2026_01%20GS%20EUI/GlobeScatterPlot.js";
+import { ScatterComparisonRender } from "https://cdn.jsdelivr.net/gh/euissR/commentary@ed25d70/2026_01%20GS%20EUI/ScatterComparison.js";
 
 // local for dev
 // import { GlobeScatterPlot } from "./GlobeScatterPlot.js";
