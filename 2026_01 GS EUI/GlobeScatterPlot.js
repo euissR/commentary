@@ -50,25 +50,25 @@ export class GlobeScatterPlot {
       {
         x: 4,
         y: 5,
-        type: "High risk",
+        type: "High\nrisk",
         lineAnchor: "top",
-        textAnchor: "start",
+        textAnchor: "middle",
         fontWeight: 700,
       },
       {
-        x: 5,
+        x: 4.5,
         y: 2,
-        type: "Moderate risk",
+        type: "Moderate\nrisk",
         lineAnchor: "bottom",
-        textAnchor: "end",
+        textAnchor: "middle",
         fontWeight: 700,
       },
       {
-        x: 3,
+        x: 4,
         y: 2,
-        type: "Remote risk",
+        type: "Remote\nrisk",
         lineAnchor: "bottom",
-        textAnchor: "end",
+        textAnchor: "middle",
         fontWeight: 700,
       },
     ];
@@ -307,7 +307,7 @@ export class GlobeScatterPlot {
       .attr("text-anchor", "start")
       .attr("fill", "#000")
       .style("font-size", "12px")
-      .text("Change from 2025 to 2026");
+      .text("Change from\n2025 to 2026");
   }
 
   setupAxes() {
