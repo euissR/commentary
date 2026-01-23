@@ -64,7 +64,7 @@ export class GlobeScatterPlot {
         fontWeight: 700,
       },
       {
-        x: 4,
+        x: 3,
         y: 2,
         type: "Remote\nrisk",
         lineAnchor: "bottom",
