@@ -35,22 +35,22 @@ export class GlobeScatterPlot {
 
     // labels for scatter plot
     this.matrix = [
-      { x1: 3, x2: 4, y1: 4, y2: 5, type: "High\nrisk" },
-      { x1: 4, x2: 5, y1: 4, y2: 5, type: "High\nrisk" },
-      { x1: 4, x2: 5, y1: 3, y2: 4, type: "High\nrisk" },
-      { x1: 2, x2: 3, y1: 4, y2: 5, type: "Moderate\nrisk" },
-      { x1: 3, x2: 4, y1: 3, y2: 4, type: "Moderate\nrisk" },
-      { x1: 4, x2: 5, y1: 2, y2: 3, type: "Moderate\nrisk" },
-      { x1: 2, x2: 3, y1: 3, y2: 4, type: "Remote\nrisk" },
-      { x1: 2, x2: 3, y1: 2, y2: 3, type: "Remote\nrisk" },
-      { x1: 3, x2: 4, y1: 2, y2: 3, type: "Remote\nrisk" },
+      { x1: 3, x2: 4, y1: 4, y2: 5, type: "High risk" },
+      { x1: 4, x2: 5, y1: 4, y2: 5, type: "High risk" },
+      { x1: 4, x2: 5, y1: 3, y2: 4, type: "High risk" },
+      { x1: 2, x2: 3, y1: 4, y2: 5, type: "Moderate risk" },
+      { x1: 3, x2: 4, y1: 3, y2: 4, type: "Moderate risk" },
+      { x1: 4, x2: 5, y1: 2, y2: 3, type: "Moderate risk" },
+      { x1: 2, x2: 3, y1: 3, y2: 4, type: "Remote risk" },
+      { x1: 2, x2: 3, y1: 2, y2: 3, type: "Remote risk" },
+      { x1: 3, x2: 4, y1: 2, y2: 3, type: "Remote risk" },
     ];
 
     this.matrixLabel = [
       {
         x: 4,
         y: 5,
-        type: "High\nrisk",
+        type: "High risk",
         lineAnchor: "top",
         textAnchor: "middle",
         fontWeight: 700,
@@ -58,7 +58,7 @@ export class GlobeScatterPlot {
       {
         x: 4.5,
         y: 2,
-        type: "Moderate\nrisk",
+        type: "Moderate risk",
         lineAnchor: "bottom",
         textAnchor: "middle",
         fontWeight: 700,
@@ -66,7 +66,7 @@ export class GlobeScatterPlot {
       {
         x: 3,
         y: 2,
-        type: "Remote\nrisk",
+        type: "Remote risk",
         lineAnchor: "bottom",
         textAnchor: "middle",
         fontWeight: 700,
@@ -189,7 +189,7 @@ export class GlobeScatterPlot {
 
     this.colorScale = d3
       .scaleOrdinal()
-      .domain(["Remote\nrisk", "Moderate\nrisk", "High\nrisk"])
+      .domain(["Remote risk", "Moderate risk", "High risk"])
       .range(["#309ebe", "#aaa", "#df3144"]);
   }
 
@@ -266,9 +266,24 @@ export class GlobeScatterPlot {
       .attr("y", (d) => this.yScale(d.y))
       .attr("text-anchor", (d) => d.textAnchor)
       .attr("font-weight", (d) => d.fontWeight)
-      .attr("dy", (d) => (d.lineAnchor === "top" ? "-0.5em" : "1em"))
-      .text((d) => d.type)
-      .attr("fill", (d) => this.colorScale(d.type));
+      .attr("fill", (d) => this.colorScale(d.type))
+      .each(function (d) {
+        const text = d3.select(this);
+        const x = text.attr("x");
+        const dy = d.lineAnchor === "top" ? "-0.5em" : "1em";
+
+        text
+          .append("tspan")
+          .attr("x", x)
+          .attr("dy", dy)
+          .text(d.type.split(" ")[0]);
+
+        text
+          .append("tspan")
+          .attr("x", x)
+          .attr("dy", "1.2em")
+          .text(d.type.split(" ")[1]);
+      });
     // .style("font-size", "12px");
   }
 
@@ -307,7 +322,21 @@ export class GlobeScatterPlot {
       .attr("text-anchor", "start")
       .attr("fill", "#000")
       .style("font-size", "12px")
-      .text("Change from\n2025 to 2026");
+      .each(function () {
+        const text = d3.select(this);
+
+        text
+          .append("tspan")
+          .attr("x", 35)
+          .attr("dy", "-0.75em")
+          .text("Change from");
+
+        text
+          .append("tspan")
+          .attr("x", 35)
+          .attr("dy", "1.2em")
+          .text("2025 to 2026");
+      });
   }
 
   setupAxes() {
